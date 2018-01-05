@@ -1,0 +1,16 @@
+{
+  "name": "march-madness",
+  "version": "1.0.0",
+  "size": {
+    "width": 5,
+    "height": 3
+  },
+  "mapping": [],
+  "ignore": [
+    "src/**/*",
+    "domo/**/*",
+    ".editorconfig",
+    ".eslintrc",
+    "webpack.config.js"
+  ]
+}
