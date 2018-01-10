@@ -27,7 +27,7 @@ module.exports = (env) => {
   return {
 
     // where's the main js file
-    entry: path.join(__dirname, 'src', 'index'),
+    entry: path.join(__dirname, 'src', 'app'),
 
     // where to put bundled files
     output: {

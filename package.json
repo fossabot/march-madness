@@ -2,7 +2,7 @@
   "name": "march-madness",
   "version": "1.0.0",
   "description": "Head 2 Head picker for March Madness 2018",
-  "main": "index.js",
+  "main": "src/app.js",
   "scripts": {
     "start": "webpack-dev-server --env.dev",
     "build": "rm -rf ./dist && webpack --env.prod",
