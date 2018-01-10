@@ -1,0 +1,67 @@
+.teams {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  right: 30px;
+  bottom: 30px;
+
+  .team {
+    width: 220px;
+    height: 430px;
+    padding: 30px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    &.-winner {
+      background-color: rgba(0, 0, 0, 0.7);
+
+      .icon {
+        transition: opacity 0.5s linear;
+        opacity: 1;
+      }
+    }
+
+    .icon {
+      top: -45px;
+      align-self: center;
+      margin-bottom: -40px;
+      opacity: 0;
+    }
+
+    .name {
+      font-size: 21px;
+      font-weight: 300;
+    }
+
+    .stats {
+      list-style: none;
+      font-size: 13px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      margin-bottom: 15px;
+
+      .stat {
+        padding: 10px 0;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+
+        &.-winner {
+          color: $green;
+        }
+
+        .value {
+          font-size: 21px;
+        }
+      }
+    }
+  }
+}

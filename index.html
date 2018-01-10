@@ -5,10 +5,50 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>March Madness</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-  <h1>Hello World</h1>
-  <img class="logo" />
+
+  <div class="teams">
+    <div id="home-team" class="team">
+      <span class="icon fa-stack fa-large">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-check fa-stack-1x fa-inverse"></i>
+      </span>
+
+      <h2 class="name">Michigan State</h2>
+
+      <div class="stats">
+        <div class="stat">Field Goals <span class="value">509</span></div>
+        <div class="stat">Field Goals <span class="value">509</span></div>
+        <div class="stat">Field Goals <span class="value">509</span></div>
+        <div class="stat">Field Goals <span class="value">509</span></div>
+        <div class="stat">Field Goals <span class="value">509</span></div>
+      </div>
+
+      <button class="button">View Details</button>
+    </div>
+
+    <div id="away-team" class="team -winner">
+      <span class="icon fa-stack fa-large">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-check fa-stack-1x fa-inverse"></i>
+      </span>
+
+      <h2 class="name">Duke</h2>
+
+      <div class="stats">
+        <div class="stat -winner">Field Goals <span class="value">509</span></div>
+        <div class="stat">Field Goals <span class="value">509</span></div>
+        <div class="stat">Field Goals <span class="value">509</span></div>
+        <div class="stat">Field Goals <span class="value">509</span></div>
+        <div class="stat">Field Goals <span class="value">509</span></div>
+      </div>
+
+      <button class="button">View Details</button>
+    </div>
+  </div>
 
   <script src="./dist/bundle.js"></script>
 </body>

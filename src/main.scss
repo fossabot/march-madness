@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400');
+@import './styles/variables';
+@import './styles/button';
+@import './styles/icons';
+@import './styles/team';
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: 'Open Sans', sans-serif;
+}
+
+body {
+  background: #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  background-image: url("../public/march-madness.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
