@@ -12,6 +12,11 @@ function init() {
   const ddControls = document.querySelectorAll('.dropdown .menu');
   ddControls.forEach(a => a.addEventListener('click', TeamCtrl.toggleDropdown));
 
+  // open dropdown by clicking on title
+  const teamNames = document.querySelectorAll('.team .name');
+  teamNames.forEach(el => el.addEventListener('click', TeamCtrl.toggleDropdown));
+
+
   // get initial team list
   TeamService.getTeamList()
     .then((teams) => {

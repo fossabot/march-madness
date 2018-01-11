@@ -41,6 +41,11 @@
       .name {
         font-size: 21px;
         font-weight: 300;
+        cursor: pointer;
+
+        &:hover {
+          color: $blue;
+        }
       }
     }
 
