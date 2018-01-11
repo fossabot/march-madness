@@ -5,9 +5,11 @@ import Query from '@domoinc/query';
  */
 class TeamService {
   constructor() {
-    this.statFields = ['team', 'gp', 'win', 'loss', 'sos', 'rpi'];
+    this.statFields = ['gp', 'win', 'loss', 'sos', 'rpi', 'spg'];
     this.alias = 'teams';
     this.teams = [];
+    this.home = null;
+    this.away = null;
   }
 
   /**
@@ -31,7 +33,6 @@ class TeamService {
   }
 
   /**
-   *
    * Filter the team list where name includes
    * the provided partial
    *
@@ -55,14 +56,20 @@ class TeamService {
    *
    * @param {string} name
    */
-  getTeamStats(name) {
+  getTeamStats(name, home = true) {
     return (new Query())
-      .select(this.statFields)
+      .select([...this.statFields, 'team'])
       .where('team').equals(name)
       .fetch(this.alias)
-      .then(res => (
-        res.length > 0 ? res[0] : res
-      ));
+      .then(([team]) => {
+        if (home) {
+          this.home = team;
+        } else {
+          this.away = team;
+        }
+
+        return team;
+      });
   }
 }
 

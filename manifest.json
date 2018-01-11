@@ -33,6 +33,26 @@
         {
           "alias": "rpi",
           "columnName": "RPI"
+        },
+        {
+          "alias": "ppg",
+          "columnName": "PointsPerGame"
+        },
+        {
+          "alias": "bpg",
+          "columnName": "BlocksPerGame"
+        },
+        {
+          "alias": "rpg",
+          "columnName": "ReboundsPerGame"
+        },
+        {
+          "alias": "spg",
+          "columnName": "StealsPerGame"
+        },
+        {
+          "alias": "topg",
+          "columnName": "TurnOversPerGame"
         }
       ]
     }
