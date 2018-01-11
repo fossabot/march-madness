@@ -6,7 +6,7 @@
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@domoinc/query/-/query-1.1.0.tgz#68210b54977e44aedfdf80ce04a85bf3c1670f2b"
 
-"@domoinc/ryuu-proxy@^1.1.0":
+"@domoinc/ryuu-proxy@1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@domoinc/ryuu-proxy/-/ryuu-proxy-1.1.0.tgz#b0e8454d630c641cfcc7874bc63478c64ad4ba18"
   dependencies:

@@ -33,9 +33,15 @@
       opacity: 0;
     }
 
-    .name {
-      font-size: 21px;
-      font-weight: 300;
+    header {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      .name {
+        font-size: 21px;
+        font-weight: 300;
+      }
     }
 
     .stats {
@@ -53,6 +59,7 @@
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
+        text-transform: uppercase;
 
         &.-winner {
           color: $green;
