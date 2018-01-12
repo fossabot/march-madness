@@ -1,5 +1,6 @@
 import AppCtrl from './app.controller';
 import TeamService from '../services/team.service';
+import Analytics from '../services/analytics.service';
 
 const ctrl = {
   buildTeamList: (menu, teams) => {
@@ -23,6 +24,35 @@ const ctrl = {
       .then(teams => ctrl.buildTeamList(dd, teams));
   },
 
+  runHeadToHead() {
+    if (Analytics.isReady()) {
+      AppCtrl.toggleLoading();
+
+      Analytics.run().then((results) => {
+        results.forEach((s) => {
+          const stats = document.querySelectorAll(`div.stat[data-stat="${s.stat}"`);
+          s.results.forEach((win, index) => {
+            if (win) {
+              stats[index].classList.add('-winner');
+            } else {
+              stats[index].classList.remove('-winner');
+            }
+          });
+        });
+
+        if (Analytics.homeWinner(results)) {
+          document.getElementById('home-team').classList.add('-winner');
+          document.getElementById('away-team').classList.remove('-winner');
+        } else {
+          document.getElementById('home-team').classList.remove('-winner');
+          document.getElementById('away-team').classList.add('-winner');
+        }
+
+        AppCtrl.toggleLoading();
+      });
+    }
+  },
+
   handleTeamSelect: (e) => {
     AppCtrl.toggleLoading();
 
@@ -41,7 +71,7 @@ const ctrl = {
         stats.innerHTML = Object.keys(team)
           .filter(key => key !== 'team')
           .map(key => (
-            `<div class="stat">${key}
+            `<div class="stat" data-stat=${key}>${key}
               <span class="value">${team[key]}</span>
             </div>`
           ))
@@ -49,6 +79,7 @@ const ctrl = {
 
         ctrl.toggleDropdown(e.target.parentNode);
         AppCtrl.toggleLoading();
+        ctrl.runHeadToHead();
       })
       .catch(AppCtrl.toggleLoading);
   },

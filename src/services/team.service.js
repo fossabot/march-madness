@@ -1,15 +1,13 @@
 import Query from '@domoinc/query';
-
+import Analytics from './analytics.service';
 /**
  * Service for interacting with the "team" resource
  */
 class TeamService {
   constructor() {
-    this.statFields = ['gp', 'win', 'loss', 'sos', 'rpi', 'spg'];
+    this.statFields = ['win', 'loss', 'sos', 'rpi', 'spg'];
     this.alias = 'teams';
     this.teams = [];
-    this.home = null;
-    this.away = null;
   }
 
   /**
@@ -61,15 +59,7 @@ class TeamService {
       .select([...this.statFields, 'team'])
       .where('team').equals(name)
       .fetch(this.alias)
-      .then(([team]) => {
-        if (home) {
-          this.home = team;
-        } else {
-          this.away = team;
-        }
-
-        return team;
-      });
+      .then(([team]) => Analytics.setTeam(team, home));
   }
 }
 

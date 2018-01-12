@@ -5,6 +5,7 @@
     "node": true
   },
   "rules": {
-    "no-param-reassign": "off"
+    "no-param-reassign": "off",
+    "class-methods-use-this": "off"
   }
 }
