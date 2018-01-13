@@ -23,6 +23,11 @@
       }
     }
 
+    > header {
+      border-bottom: 1px solid $blue;
+      margin-bottom: 10px;
+    }
+
     .icon {
       top: -45px;
       align-self: center;

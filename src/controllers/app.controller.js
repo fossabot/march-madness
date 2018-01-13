@@ -1,7 +1,5 @@
-const ctrl = {
-  toggleLoading: () => {
-    document.querySelector('.spinner').classList.toggle('hide');
-  },
+const toggleLoading = () => {
+  document.querySelector('.spinner').classList.toggle('hide');
 };
 
-module.exports = ctrl;
+module.exports.toggleLoading = toggleLoading;

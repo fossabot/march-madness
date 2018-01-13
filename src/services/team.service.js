@@ -1,5 +1,6 @@
 import Query from '@domoinc/query';
 import Analytics from './analytics.service';
+
 /**
  * Service for interacting with the "team" resource
  */
@@ -36,7 +37,7 @@ class TeamService {
    *
    * @param {string} partial
    */
-  getFilterTeamList(partial) {
+  filterTeamList(partial) {
     return this.getTeamList()
       .then(teams => (
         (typeof partial !== 'string' || partial.length < 2)
@@ -59,7 +60,21 @@ class TeamService {
       .select([...this.statFields, 'team'])
       .where('team').equals(name)
       .fetch(this.alias)
-      .then(([team]) => Analytics.setTeam(team, home));
+      .then(this.prepareTeam)
+      .then(team => Analytics.setTeam(team, home));
+  }
+
+  prepareTeam(res) {
+    const team = res[0];
+
+    Object.keys(team).forEach(key => {
+      const stat = team[key];
+      if (typeof stat !== 'number' && typeof stat !== 'string') {
+        team[key] = 0;
+      }
+    });
+
+    return team;
   }
 }
 

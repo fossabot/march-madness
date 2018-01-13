@@ -2,98 +2,121 @@ import AppCtrl from './app.controller';
 import TeamService from '../services/team.service';
 import Analytics from '../services/analytics.service';
 
-const ctrl = {
-  buildTeamList: (menu, teams) => {
-    menu.innerHTML = null;
+const toggleDropdown = () => (evt) => {
+  const dm = (typeof evt.target !== 'undefined')
+    ? evt.target.parentNode.parentNode.querySelector('.dropdown-content')
+    : evt.parentNode;
 
+  dm.classList.toggle('open');
+}
+
+const handleTeamSelect = () => {
+  return (evt) => {
+    AppCtrl.toggleLoading();
+
+    const name = evt.target.innerText;
+    const id = evt.target.parentElement.getAttribute('for');
+
+    return TeamService.getTeamStats(name, id === 'home-team')
+      .then((team) => updateTeam(id)(team))
+      .then(() => {
+        AppCtrl.toggleLoading();
+        toggleDropdown()(evt.target.parentNode);
+
+        if (Analytics.isReady()) runHeadToHead();
+      })
+      .catch(AppCtrl.toggleLoading);
+  }
+}
+
+const handleTeamSearch = () => (e) => {
+  const qs = e.target.value;
+  const dd = e.target.parentElement.parentElement.querySelector('.items');
+
+  TeamService
+    .getFilterTeamList(qs)
+    .then(teams => updateTeamMenu(dd)(teams));
+}
+
+const updateTeam = (id) => {
+  const el = document.getElementById(id);
+
+  return (team) => {
+    const title = el.querySelector('.name');
+    const stats = el.querySelector('.stats');
+    const btn = el.querySelector('button');
+    btn.disabled = false;
+
+    title.innerText = team.team;
+    stats.innerHTML = Object.keys(team)
+      .filter(key => key !== 'team')
+      .map(key => (
+        `<div class="stat" data-stat=${key}>${key}
+          <span class="value">${team[key]}</span>
+        </div>`
+      ))
+      .join('');
+
+    return;
+  }
+}
+
+const updateTeamMenu = (menu) => {
+  menu.innerHTML = null;
+
+  return (teams) => {
     teams.forEach((team) => {
       const item = document.createElement('div');
       item.className = 'item';
       item.innerHTML = team;
-      item.addEventListener('click', ctrl.handleTeamSelect);
+      item.addEventListener('click', handleTeamSelect());
       menu.appendChild(item);
     });
-  },
+  }
+}
 
-  handleSearch: (e) => {
-    const qs = e.target.value;
-    const dd = e.target.parentElement.parentElement.querySelector('.items');
+const runHeadToHead = () => {
+  AppCtrl.toggleLoading();
 
-    TeamService
-      .getFilterTeamList(qs)
-      .then(teams => ctrl.buildTeamList(dd, teams));
-  },
+  return (
+    Analytics.run()
+      .then(updateTeamStats)
+      .then(findWinningTeam)
+      .then(() => AppCtrl.toggleLoading())
+      .catch(() => AppCtrl.toggleLoading())
+  );
+}
 
-  runHeadToHead() {
-    if (Analytics.isReady()) {
-      AppCtrl.toggleLoading();
+const updateTeamStats = (results) => results.map(updateTeamStat);
 
-      Analytics.run().then((results) => {
-        results.forEach((s) => {
-          const stats = document.querySelectorAll(`div.stat[data-stat="${s.stat}"`);
-          s.results.forEach((win, index) => {
-            if (win) {
-              stats[index].classList.add('-winner');
-            } else {
-              stats[index].classList.remove('-winner');
-            }
-          });
-        });
+const updateTeamStat = (stat) => {
+  const stats = document.querySelectorAll(`div.stat[data-stat="${stat.stat}"`);
 
-        if (Analytics.homeWinner(results)) {
-          document.getElementById('home-team').classList.add('-winner');
-          document.getElementById('away-team').classList.remove('-winner');
-        } else {
-          document.getElementById('home-team').classList.remove('-winner');
-          document.getElementById('away-team').classList.add('-winner');
-        }
-
-        AppCtrl.toggleLoading();
-      });
+  stat.results.forEach((win, index) => {
+    if (win) {
+      stats[index].classList.add('-winner');
+    } else {
+      stats[index].classList.remove('-winner');
     }
-  },
+  });
 
-  handleTeamSelect: (e) => {
-    AppCtrl.toggleLoading();
+  return stat;
+}
 
-    const name = e.target.innerText;
-    const id = e.target.parentElement.getAttribute('for');
+const findWinningTeam = (results) => {
+  if (Analytics.homeWinner(results)) {
+    document.getElementById('home-team').classList.add('-winner');
+    document.getElementById('away-team').classList.remove('-winner');
+  } else {
+    document.getElementById('home-team').classList.remove('-winner');
+    document.getElementById('away-team').classList.add('-winner');
+  }
 
-    TeamService.getTeamStats(name, id === 'home-team')
-      .then((team) => {
-        const el = document.getElementById(id);
-        const title = el.querySelector('.name');
-        const stats = el.querySelector('.stats');
-        const btn = el.querySelector('button');
-        btn.disabled = false;
+  return;
+}
 
-        title.innerText = team.team;
-        stats.innerHTML = Object.keys(team)
-          .filter(key => key !== 'team')
-          .map(key => (
-            `<div class="stat" data-stat=${key}>${key}
-              <span class="value">${team[key]}</span>
-            </div>`
-          ))
-          .join('');
-
-        ctrl.toggleDropdown(e.target.parentNode);
-        AppCtrl.toggleLoading();
-        ctrl.runHeadToHead();
-      })
-      .catch(AppCtrl.toggleLoading);
-  },
-
-  toggleDropdown: (e) => {
-    const dm = (typeof e.target !== 'undefined')
-      ? (
-        e.target.parentNode.parentNode
-          .querySelector('.dropdown-content')
-      )
-      : e.parentNode;
-
-    dm.classList.toggle('open');
-  },
+module.exports = {
+  handleTeamSearch,
+  toggleDropdown,
+  updateTeamMenu,
 };
-
-module.exports = ctrl;
