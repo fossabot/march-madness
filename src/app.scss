@@ -5,6 +5,8 @@
 @import './styles/team';
 @import './styles/loader';
 @import './styles/dropdown';
+@import './styles/modal';
+@import './styles/controls';
 
 html, body {
   margin: 0;
@@ -25,4 +27,20 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+}
+
+input {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: 7px 5px;
+}
+
+.content {
+  align-self: flex-end;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: flex-end;
+  padding: 25px;
 }

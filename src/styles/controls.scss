@@ -1,0 +1,18 @@
+.controls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 10px 0;
+
+  .control {
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    transition: color 400ms ease-out;
+
+    &:hover {
+      color: $green;
+    }
+  }
+}

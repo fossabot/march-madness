@@ -10,54 +10,59 @@
 </head>
 <body>
 
-  <div class="teams">
-
-    <!-- Home Team -->
-    <div id="home-team" class="team">
-      <span class="icon fa-stack fa-large">
-        <i class="fa fa-circle fa-stack-2x"></i>
-        <i class="fa fa-check fa-stack-1x fa-inverse"></i>
-      </span>
-
-      <header>
-        <h2 class="name">Home</h2>
-        <div class="dropdown">
-          <a class="menu"><i class="fa fa-chevron-down"></i></a>
-          <div class="dropdown-content">
-            <header>
-              <input type="text" placeholder="Search..." value="" />
-            </header>
-            <div class="items" for="home-team"></div>
-          </div>
-        </div>
-      </header>
-
-      <div class="stats"></div>
-      <button class="button" disabled>View Details</button>
+  <div class="content">
+    <div class="controls">
+      <a class="control" for="settings"><i class="fa fa-cog"></i></a>
     </div>
 
-    <!-- Away Team -->
-    <div id="away-team" class="team">
-      <span class="icon fa-stack fa-large">
-        <i class="fa fa-circle fa-stack-2x"></i>
-        <i class="fa fa-check fa-stack-1x fa-inverse"></i>
-      </span>
+    <div class="teams">
 
-      <header>
-          <h2 class="name">Away</h2>
-          <div class="dropdown">
-            <a class="menu"><i class="fa fa-chevron-down"></i></a>
-            <div class="dropdown-content">
-              <header>
-                <input type="text" placeholder="Search..." value="" />
-              </header>
-              <div class="items" for="away-team"></div>
+        <!-- Home Team -->
+        <div id="home-team" class="team">
+          <span class="icon fa-stack fa-large">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-check fa-stack-1x fa-inverse"></i>
+          </span>
+
+          <header>
+            <div class="dropdown">
+              <a class="menu">Home <i class="fa fa-chevron-down"></i></a>
+              <div class="dropdown-content">
+                <header>
+                  <input type="text" placeholder="Search..." value="" />
+                </header>
+                <div class="items" for="home-team"></div>
+              </div>
             </div>
-          </div>
-        </header>
-      <div class="stats"></div>
-      <button class="button" disabled>View Details</button>
-    </div>
+          </header>
+
+          <div class="stats"></div>
+          <button class="button" disabled>View Details</button>
+        </div>
+
+        <!-- Away Team -->
+        <div id="away-team" class="team">
+          <span class="icon fa-stack fa-large">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-check fa-stack-1x fa-inverse"></i>
+          </span>
+
+          <header>
+            <div class="dropdown">
+              <a class="menu">Away<i class="fa fa-chevron-down"></i></a>
+              <div class="dropdown-content">
+                <header>
+                  <input type="text" placeholder="Search..." value="" />
+                </header>
+                <div class="items" for="away-team"></div>
+              </div>
+            </div>
+          </header>
+          <div class="stats"></div>
+          <button class="button" disabled>View Details</button>
+        </div>
+      </div>
+
   </div>
 
   <!-- Loading Icon -->
@@ -66,6 +71,19 @@
       <div class="bounce1"></div>
       <div class="bounce2"></div>
       <div class="bounce3"></div>
+    </div>
+  </div>
+
+  <div class="modal">
+    <div class="modal-content">
+      <h2 class="title">Weightings</h2>
+      <div class="content">
+        <div><input type="number" value="20" /> RPI</div>
+        <div><input type="number" value="20" /> RPI</div>
+        <div><input type="number" value="20" /> RPI</div>
+        <div><input type="number" value="20" /> RPI</div>
+        <div><input type="number" value="20" /> RPI</div>
+      </div>
     </div>
   </div>
 
