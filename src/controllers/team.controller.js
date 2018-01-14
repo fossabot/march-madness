@@ -8,45 +8,19 @@ const toggleDropdown = () => (evt) => {
     : evt.parentNode;
 
   dm.classList.toggle('open');
-}
-
-const handleTeamSelect = () => (evt) => {
-  AppCtrl.toggleLoading();
-
-  const name = evt.target.innerText;
-  const id = evt.target.parentElement.getAttribute('for');
-
-  return TeamService.getTeamStats(name, id === HOME_ID)
-    .then((team) => updateTeam(id)(team))
-    .then(() => {
-      AppCtrl.toggleLoading();
-      toggleDropdown()(evt.target.parentNode);
-
-      if (Analytics.isReady()) runHeadToHead();
-    })
-    .catch(AppCtrl.toggleLoading);
-}
-
-const handleTeamSearch = () => (e) => {
-  const qs = e.target.value;
-  const dd = e.target.parentElement.parentElement.querySelector('.items');
-
-  TeamService
-    .filterTeamList(qs)
-    .then(teams => updateTeamMenu(dd)(teams));
-}
+};
 
 const updateTeam = (id) => {
   const el = document.getElementById(id);
 
   return (team) => {
     const title = el.querySelector(SELECTORS.teamTitle);
-    const stats = el.querySelector(SELECTORS.teamStats);
-    const btn = el.querySelector(SELECTORS.teamButton);
+    title.innerText = team.team;
 
+    const btn = el.querySelector(SELECTORS.teamButton);
     btn.disabled = false;
 
-    title.innerText = team.team;
+    const stats = el.querySelector(SELECTORS.teamStats);
     stats.innerHTML = Object.keys(team)
       .filter(key => key !== TEAM_NAME)
       .map(key => (
@@ -56,37 +30,9 @@ const updateTeam = (id) => {
       ))
       .join('');
 
-    return;
-  }
-}
-
-const updateTeamMenu = (menu) => {
-  menu.innerHTML = null;
-
-  return (teams) => {
-    teams.forEach((team) => {
-      const item = document.createElement('div');
-      item.className = 'item';
-      item.innerHTML = team;
-      item.addEventListener('click', handleTeamSelect());
-      menu.appendChild(item);
-    });
-  }
-}
-
-const runHeadToHead = () => {
-  AppCtrl.toggleLoading();
-
-  return (
-    Analytics.run()
-      .then(updateTeamStats)
-      .then(findWinningTeam)
-      .then(() => AppCtrl.toggleLoading())
-      .catch(() => AppCtrl.toggleLoading())
-  );
-}
-
-const updateTeamStats = (results) => results.map(updateTeamStat);
+    return stats;
+  };
+};
 
 const updateTeamStat = (stat) => {
   const stats = document.querySelectorAll(SELECTORS.teamStat(stat.stat));
@@ -100,7 +46,9 @@ const updateTeamStat = (stat) => {
   });
 
   return stat;
-}
+};
+
+const updateTeamStats = results => results.map(updateTeamStat);
 
 const findWinningTeam = (results) => {
   if (Analytics.homeWinner(results)) {
@@ -111,8 +59,60 @@ const findWinningTeam = (results) => {
     document.getElementById(AWAY_ID).classList.add(SELECTORS.winningTeam);
   }
 
-  return;
-}
+  return results;
+};
+
+const runHeadToHead = () => {
+  AppCtrl.toggleLoading();
+
+  return (
+    Analytics.run()
+      .then(updateTeamStats)
+      .then(findWinningTeam)
+      .then(() => AppCtrl.toggleLoading())
+      .catch(() => AppCtrl.toggleLoading())
+  );
+};
+
+const handleTeamSelect = () => (evt) => {
+  AppCtrl.toggleLoading();
+
+  const name = evt.target.innerText;
+  const id = evt.target.parentElement.getAttribute('for');
+
+  return TeamService.getTeamStats(name, id === HOME_ID)
+    .then(team => updateTeam(id)(team))
+    .then(() => {
+      AppCtrl.toggleLoading();
+      toggleDropdown()(evt.target.parentNode);
+
+      if (Analytics.isReady()) runHeadToHead();
+    })
+    .catch(AppCtrl.toggleLoading);
+};
+
+const updateTeamMenu = (menu) => {
+  menu.innerHTML = null;
+
+  return (teams) => {
+    teams.forEach((team) => {
+      const item = document.createElement('div');
+      item.className = 'item';
+      item.innerHTML = team;
+      item.addEventListener('click', handleTeamSelect());
+      menu.appendChild(item);
+    });
+  };
+};
+
+const handleTeamSearch = () => (e) => {
+  const qs = e.target.value;
+  const dd = e.target.parentElement.parentElement.querySelector('.items');
+
+  TeamService
+    .filterTeamList(qs)
+    .then(teams => updateTeamMenu(dd)(teams));
+};
 
 module.exports = {
   runHeadToHead,

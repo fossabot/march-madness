@@ -21,10 +21,10 @@ const pullWeights = (modal) => {
   });
 
   return weights;
-}
+};
 
-const buildWeights = (weights) => {
-  return Object.keys(weights).map((key) => (
+const buildWeights = weights => (
+  Object.keys(weights).map(key => (
     `<div class="weight" for="${key}">
       <div class="input-group">
         <input type="number" value="${weights[key][0] * 100}" name="${key}" /> ${key}
@@ -33,10 +33,10 @@ const buildWeights = (weights) => {
         <input type="checkbox" ${(weights[key][1] < 0) ? 'checked' : null}> Invert
       </div>
     </div>`
-  )).join('');
-}
+  )).join('')
+);
 
-const openModal = () => (evt) => {
+const openModal = () => () => {
   toggleLoading();
   const el = document.querySelector(SELECTORS.modal);
 
@@ -54,17 +54,17 @@ const openModal = () => (evt) => {
       toggleLoading();
       document.querySelector(SELECTORS.modal).classList.add(SELECTORS.modalOpen);
     });
-}
+};
 
 const closeModal = () => (evt) => {
   const el = evt.target;
 
-  if(el.classList.contains('modal')) {
+  if (el.classList.contains('modal')) {
     el.classList.remove(SELECTORS.modalOpen);
     Analytics.updateStatWeightings(pullWeights(el));
     TeamCtrl.runHeadToHead();
   }
-}
+};
 
 module.exports = {
   toggleLoading,

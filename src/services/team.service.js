@@ -1,5 +1,5 @@
 import Query from '@domoinc/query';
-import { SELECTORS, TEAM_STAT_FIELDS, TEAM_ALIAS, TEAM_NAME } from '../utils/constants';
+import { TEAM_STAT_FIELDS, TEAM_ALIAS, TEAM_NAME } from '../utils/constants';
 import { Analytics } from '../services';
 
 /**
@@ -41,9 +41,8 @@ class TeamService {
     return this.getTeamList()
       .then(teams => (
         (typeof partial !== 'string' || partial.length < 2)
-          ? teams
-          : teams.filter(team => (team.toLowerCase().includes(partial.toLowerCase()))
-        )
+          ? (teams)
+          : (teams.filter(team => team.toLowerCase().includes(partial.toLowerCase())))
       ));
   }
 
@@ -64,7 +63,7 @@ class TeamService {
   prepareTeam(res) {
     const team = res[0];
 
-    Object.keys(team).forEach(key => {
+    Object.keys(team).forEach((key) => {
       const stat = team[key];
       if (typeof stat !== 'number' && typeof stat !== 'string') {
         team[key] = 0;

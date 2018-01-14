@@ -4,7 +4,9 @@
   "description": "Head 2 Head picker for March Madness 2018",
   "main": "src/app.js",
   "scripts": {
+    "lint": "eslint src/**/*.js",
     "start": "webpack-dev-server --env.dev",
+    "prebuild": "npm run lint",
     "build": "rm -rf ./dist && webpack --env.prod",
     "upload": "npm run build && domo publish"
   },
