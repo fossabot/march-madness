@@ -1,13 +1,13 @@
 import Query from '@domoinc/query';
-import Analytics from './analytics.service';
+import { SELECTORS, TEAM_STAT_FIELDS, TEAM_ALIAS, TEAM_NAME } from '../utils/constants';
+import { Analytics } from '../services';
 
 /**
  * Service for interacting with the "team" resource
  */
 class TeamService {
   constructor() {
-    this.statFields = ['win', 'loss', 'sos', 'rpi', 'spg'];
-    this.alias = 'teams';
+    this.alias = TEAM_ALIAS;
     this.teams = [];
   }
 
@@ -19,8 +19,8 @@ class TeamService {
     if (this.teams.length > 0) return Promise.resolve(this.teams);
 
     return (new Query())
-      .select('team')
-      .groupBy('team')
+      .select(TEAM_NAME)
+      .groupBy(TEAM_NAME)
       .fetch(this.alias)
       .then(res => res.map(row => row.team))
       .then(teams => teams.sort())
@@ -54,8 +54,8 @@ class TeamService {
    */
   getTeamStats(name, home = true) {
     return (new Query())
-      .select([...this.statFields, 'team'])
-      .where('team').equals(name)
+      .select([...TEAM_STAT_FIELDS, 'team'])
+      .where(TEAM_NAME).equals(name)
       .fetch(this.alias)
       .then(this.prepareTeam)
       .then(team => Analytics.setTeam(team, home));

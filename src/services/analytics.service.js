@@ -2,12 +2,13 @@ class AnalyticsService {
   constructor() {
     this.home = undefined;
     this.away = undefined;
+
+    // hardcoding these for now
     this.weights = {
-      win: [0.2, 1],
-      loss: [0.2, -1],
-      sos: [0.2, -1],
-      rpi: [0.2, 1],
-      spg: [0.2, 1],
+      win: [0.25, 1],
+      loss: [0.25, -1],
+      sos: [0.25, -1],
+      rpi: [0.25, 1],
     };
   }
 

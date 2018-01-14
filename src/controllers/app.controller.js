@@ -1,15 +1,18 @@
 import { TeamCtrl } from '../controllers';
 import { Analytics } from '../services';
+import { SELECTORS } from '../utils/constants';
 
 const toggleLoading = () => {
-  document.querySelector('.spinner').classList.toggle('hide');
+  document
+    .querySelector(SELECTORS.spinner)
+    .classList.toggle(SELECTORS.hideSpinner);
 };
 
 const pullWeights = (modal) => {
   const weights = {};
-  modal.querySelectorAll('.weight').forEach((el) => {
-    const input = el.querySelector('input[type="number"]');
-    const cb = el.querySelector('input[type="checkbox"]');
+  modal.querySelectorAll(SELECTORS.weight).forEach((el) => {
+    const input = el.querySelector(SELECTORS.numberInput);
+    const cb = el.querySelector(SELECTORS.checkbox);
 
     weights[el.getAttribute('for')] = [
       input.value / 100,
@@ -35,7 +38,7 @@ const buildWeights = (weights) => {
 
 const openModal = () => (evt) => {
   toggleLoading();
-  const el = document.querySelector('.modal');
+  const el = document.querySelector(SELECTORS.modal);
 
   return Analytics.getStatWeightings()
     .then((weights) => {
@@ -49,7 +52,7 @@ const openModal = () => (evt) => {
       `;
 
       toggleLoading();
-      document.querySelector('.modal').classList.add('open');
+      document.querySelector(SELECTORS.modal).classList.add(SELECTORS.modalOpen);
     });
 }
 
@@ -57,7 +60,7 @@ const closeModal = () => (evt) => {
   const el = evt.target;
 
   if(el.classList.contains('modal')) {
-    el.classList.remove('open');
+    el.classList.remove(SELECTORS.modalOpen);
     Analytics.updateStatWeightings(pullWeights(el));
     TeamCtrl.runHeadToHead();
   }
