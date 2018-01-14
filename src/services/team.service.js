@@ -42,11 +42,8 @@ class TeamService {
       .then(teams => (
         (typeof partial !== 'string' || partial.length < 2)
           ? teams
-          : teams.filter(team => (
-            team
-              .toLowerCase()
-              .includes(partial.toLowerCase())
-          ))
+          : teams.filter(team => (team.toLowerCase().includes(partial.toLowerCase()))
+        )
       ));
   }
 

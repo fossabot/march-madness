@@ -1,20 +1,25 @@
 import './app.scss';
 import TeamService from './services/team.service';
-import AppCtrl from './controllers/app.controller';
-import TeamCtrl from './controllers/team.controller';
+import { AppCtrl, TeamCtrl } from './controllers';
 
-console.log(TeamCtrl);
+const bindEventListeners = (selector) => {
+  const elements = document.querySelectorAll(selector);
+
+  return (event, listener) => (
+    elements.forEach(el => el.addEventListener(event, listener))
+  );
+};
 
 function init() {
   // bind search fields
-  const search = document.querySelectorAll('.dropdown-content input');
-  search.forEach(input =>
-    input.addEventListener('input', TeamCtrl.handleTeamSearch())
-  );
+  bindEventListeners('.dropdown-content input')('input', TeamCtrl.handleTeamSearch());
 
   // bind dropdown menus
-  const ddControls = document.querySelectorAll('.dropdown .menu');
-  ddControls.forEach(a => a.addEventListener('click', TeamCtrl.toggleDropdown()));
+  bindEventListeners('.dropdown .menu')('click', TeamCtrl.toggleDropdown());
+
+  // bind settings modal
+  bindEventListeners('.controls .control[for="settings"]')('click', AppCtrl.openModal());
+  bindEventListeners('.modal')('click', AppCtrl.closeModal());
 
   // get initial team list
   TeamService.getTeamList()

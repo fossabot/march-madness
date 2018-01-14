@@ -61,7 +61,11 @@ class AnalyticsService {
   }
 
   getStatWeightings() {
-    return Promise.resolve(this.weights);
+    if (this.weights) return Promise.resolve(this.weights);
+  }
+
+  updateStatWeightings(weights) {
+    this.weights = weights;
   }
 }
 

@@ -36,6 +36,13 @@ input {
   padding: 7px 5px;
 }
 
+.input-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
 .content {
   align-self: flex-end;
   display: flex;

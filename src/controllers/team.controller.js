@@ -1,6 +1,5 @@
-import AppCtrl from './app.controller';
-import TeamService from '../services/team.service';
-import Analytics from '../services/analytics.service';
+import { AppCtrl } from '../controllers';
+import { TeamService, Analytics } from '../services';
 
 const toggleDropdown = () => (evt) => {
   const dm = (typeof evt.target !== 'undefined')
@@ -34,7 +33,7 @@ const handleTeamSearch = () => (e) => {
   const dd = e.target.parentElement.parentElement.querySelector('.items');
 
   TeamService
-    .getFilterTeamList(qs)
+    .filterTeamList(qs)
     .then(teams => updateTeamMenu(dd)(teams));
 }
 
@@ -116,6 +115,7 @@ const findWinningTeam = (results) => {
 }
 
 module.exports = {
+  runHeadToHead,
   handleTeamSearch,
   toggleDropdown,
   updateTeamMenu,
