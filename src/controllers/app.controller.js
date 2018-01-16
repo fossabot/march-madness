@@ -11,38 +11,36 @@ import { SELECTORS } from '../utils/constants';
 
 // toggle fullscreen mode
 const toggleFullScreen = () => {
-  console.log('toggle it');
   const docElem = document.documentElement;
   const doc = document;
   const fullScreen = (
     doc.fullscreenElement || doc.mozFullScreenElement || doc.webkitFullscreenElement
   );
 
+  let fn;
   if (!fullScreen) {
     if (docElem.requestFullscreen) {
-      return docElem.requestFullscreen();
+      fn = docElem.requestFullscreen();
     } else if (docElem.mozRequestFullScreen) {
-      return docElem.mozRequestFullScreen();
+      fn = docElem.mozRequestFullScreen();
     } else if (docElem.webkitRequestFullscreen) {
-      return docElem.webkitRequestFullscreen();
+      fn = docElem.webkitRequestFullscreen();
     } else if (docElem.msRequestFullscreen) {
-      return docElem.msRequestFullscreen();
-    } else {
-      return console.error('Fullscreen is unavailable.');
+      fn = docElem.msRequestFullscreen();
     }
-  } else {
-    if (doc.exitFullscreen) {
-      return doc.exitFullscreen();
-    } else if (doc.mozCancelFullScreen) {
-      return doc.mozCancelFullScreen();
-    } else if (doc.webkitExitFullscreen) {
-      return doc.webkitExitFullscreen();
-    } else if (doc.msExitFullscreen) {
-      return doc.msExitFullscreen();
-    } else {
-      return console.error('No Fullscreen to exit.');
-    }
+  } else if (doc.exitFullscreen) {
+    fn = doc.exitFullscreen();
+  } else if (doc.mozCancelFullScreen) {
+    fn = doc.mozCancelFullScreen();
+  } else if (doc.webkitExitFullscreen) {
+    fn = doc.webkitExitFullscreen();
+  } else if (doc.msExitFullscreen) {
+    fn = doc.msExitFullscreen();
   }
+
+  return (typeof fn === 'undefined')
+    ? console.warn('Fullscreen not supported on this device')
+    : fn;
 };
 
 // Show / Hide loading spinner
