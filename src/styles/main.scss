@@ -1,12 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400');
-@import './styles/variables';
-@import './styles/button';
-@import './styles/icons';
-@import './styles/team';
-@import './styles/loader';
-@import './styles/dropdown';
-@import './styles/modal';
-@import './styles/controls';
+
+@import './variables';
+@import './components/button';
+@import './components/icons';
+@import './components/team';
+@import './components/loader';
+@import './components/dropdown';
+@import './components/modal';
+@import './components/controls';
 
 html, body {
   margin: 0;
@@ -23,7 +24,7 @@ body {
   align-items: center;
   justify-content: center;
 
-  background-image: url("../public/march-madness.jpg");
+  background-image: url("../../public/march-madness.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

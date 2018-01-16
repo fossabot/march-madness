@@ -1,6 +1,6 @@
 import * as domo from 'ryuu.js';
 
-import './app.scss';
+import './styles/main.scss';
 import { SELECTORS, TEAM_ALIAS } from './utils/constants';
 import { TeamService } from './services';
 import { AppCtrl, TeamCtrl } from './controllers';
