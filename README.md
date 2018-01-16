@@ -1,17 +1,54 @@
 # March Madness: DP18
 
-Sample Custom App that creates Head 2 Head scenarios to help you build your 2018 bracket. This will
-be the base app that will be enhanced during the DP18 Pre Conference training.
+Sample Custom App that creates Head 2 Head scenarios to help you build your 2018 bracket. We've provided
+a base, working app that demonstrates the use of Webpack to bundle your assets. During the course we will work
+on adding more advanced features. Please refer to the links below for a state of the app at the end of each
+milestone.
 
-## Objectives
+## Milestones
 
-* Demonstrate a more advanced starting app
-* Complex calculations within the app based on user inputs
-* Handling data updates
-* Adding full screen support
-* Navigation to other Domo pages and external sites
-* Enabling a user-configuration option
-* Storing persistent app state
+### [User Configuration](CustomApps/march-madness/blob/feat/configuration)
+
+```git checkout feat/configuration```
+
+Demonstrates how to leverage a Domo dataset as your user configuration, enabling your app to be
+easily configured without hard-coding parameters in your app.
+
+### [Handling Data Updates](CustomApps/march-madness/blob/feat/on-data-update)
+
+```git checkout feat/on-data-update```
+
+Domo Apps behave just like standard Domo cards when data is updated, they are reloaded. Learn
+how to handle these events to prevent unwanted reloads when your user is in the middle of an operation.
+
+### [Full Screen](CustomApps/march-madness/blob/feat/fullscreen)
+
+```git checkout feat/fullscreen```
+
+Sometimes your app use case calls for a fullscreen display (think an app on a wall display) and you'd 
+like to go from the standard page-view straight to fullscreen without going through the nested
+context menus.
+
+### [Navigation](CustomApps/march-madness/blob/feat/domo-navigation)
+
+```git checkout feat/domo-navigation```
+
+How do Domo Apps handle navigation to internal pages and external websites? 
+
+### [Persistent State](CustomApps/march-madness/blob/feat/persist-state)
+
+```git checkout feat/persist-state```
+
+Your app is a super app that allows data selection and filtering. Your user takes 10 minutes 
+slicing and dicing the data to get to the perfect view - and then has to leave the page...
+
+Will your user have to reselect all of those options again?
+
+### [All Features](CustomApps/march-madness/blob/feat/all-features)
+
+```git checkout feat/all-features```
+
+Showing the app with all of these features combined.
 
 ## Technologies Uses
 
