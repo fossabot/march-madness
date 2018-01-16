@@ -1,5 +1,46 @@
+import domo from 'ryuu.js';
+import Query from '@domoinc/query';
 import { TeamService, Analytics } from '../services';
-import { SELECTORS, TEAM_NAME, HOME_ID, AWAY_ID } from '../utils/constants';
+import { SELECTORS, TEAM_NAME, HOME_ID, AWAY_ID, TEAM_ALIAS } from '../utils/constants';
+
+// Navigation destination
+const PAGE_URL = '/page/1698810256';
+
+// Create page filters to pass into the URL
+const createPageFilters = (teamName, column, dataSourceId) => {
+  const filters = [
+    {
+      column,
+      dataSourceId,
+      dataType: 'string',
+      operand: 'IN',
+      values: [teamName],
+    },
+  ];
+  return JSON.stringify(filters);
+};
+
+// this is called when the user clicks the "View Details" button. It grabs the team name,
+// creates a url with page filters and then calls domo.navigate. More documentation on
+// domo.navigate can be found here: https://developer.domo.com/docs/dev-studio-references/domo-js#domo.navigate
+const viewDetails = () => (evt) => {
+  // we first fire off a query so that we can retrieve the unaliased column name
+  // along with the data source id, both of which we need to perform page filtering on navigation
+  new Query()
+    .select(TEAM_NAME)
+    .groupBy(TEAM_NAME)
+    .limit(1)
+    .fetch(TEAM_ALIAS, { acceptType: 'application/json' })
+    .then((data) => {
+      const { datasource, columns } = data;
+      const unaliasedColumn = columns[0];
+      const team = evt.target.parentNode.querySelector(SELECTORS.teamTitle).innerText;
+
+      const pageFilters = createPageFilters(team, unaliasedColumn, datasource);
+      const target = `${PAGE_URL}?pfilters=${pageFilters}`;
+      domo.navigate(target);
+    });
+};
 
 /**
  * Team Controller
@@ -137,4 +178,5 @@ module.exports = {
   updateTeamMenu,
   updateTeam,
   updateActiveTeams,
+  viewDetails,
 };
