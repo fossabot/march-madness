@@ -1,4 +1,3 @@
-import { AppCtrl } from '../controllers';
 import { TeamService, Analytics } from '../services';
 import { SELECTORS, TEAM_NAME, HOME_ID, AWAY_ID } from '../utils/constants';
 
@@ -46,7 +45,6 @@ const updateTeam = (id) => {
 // determine which team stat won
 const updateTeamStat = (stat) => {
   const stats = document.querySelectorAll(SELECTORS.teamStat(stat.stat));
-
   stat.results.forEach((win, index) => {
     if (win) {
       stats[index].classList.add(SELECTORS.winningTeam);
@@ -91,7 +89,6 @@ const handleTeamSelect = () => (evt) => {
     .then(team => updateTeam(id)(team))
     .then(() => {
       toggleDropdown()(evt.target.parentNode);
-
       if (Analytics.isReady()) runHeadToHead();
     });
 };

@@ -40,23 +40,23 @@ class AnalyticsService {
         const results = [];
 
         Object.keys(weights).forEach((stat) => {
-          const [weight, operator] = this.weights[stat];
+          const { value, invert } = this.weights[stat];
           const homeStat = this.home[stat];
           const awayStat = this.away[stat];
+
           const homeWin = (
-            (operator < 0 && homeStat <= awayStat)
-            || (operator > 0 && homeStat >= awayStat)
+            (invert && homeStat <= awayStat)
+            || (!invert && homeStat >= awayStat)
           );
 
           results.push({
             stat,
             results: [homeWin, !homeWin],
-            weights: [homeWin ? weight : 0, (!homeWin) ? weight : 0],
+            weights: [homeWin ? value : 0, (!homeWin) ? value : 0],
           });
         });
 
         this.app.toggleLoading();
-
         return results;
       })
       .catch(() => this.app.toggleLoading());
