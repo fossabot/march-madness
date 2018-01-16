@@ -78,7 +78,12 @@ const findWinningTeam = (results) => {
 // determine which team has won
 const runHeadToHead = () => (
   Analytics.run()
-    .then(updateTeamStats)
+    // .then(updateTeamStats)
+    .then((data) => {
+      console.log(data);
+
+      return updateTeamStats(data);
+    })
     .then(findWinningTeam)
 );
 
@@ -125,4 +130,5 @@ module.exports = {
   handleTeamSearch,
   toggleDropdown,
   updateTeamMenu,
+  updateTeam,
 };

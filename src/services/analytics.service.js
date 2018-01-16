@@ -6,8 +6,10 @@ import { AppCtrl } from '../controllers';
 class AnalyticsService {
   constructor() {
     this.app = AppCtrl;
-    this.home = undefined;
-    this.away = undefined;
+    const persistedTeams = JSON.parse(window.localStorage.getItem('ncaa-persisted-teams'));
+
+    this.home = persistedTeams && persistedTeams.home ? persistedTeams.home : undefined;
+    this.away = persistedTeams && persistedTeams.away ? persistedTeams.away : undefined;
 
     // hardcoding these for now
     this.weights = {
@@ -21,6 +23,8 @@ class AnalyticsService {
   // Updates singletone reference for either home or away team
   setTeam(team, isHome) {
     this[isHome ? 'home' : 'away'] = team;
+    const persisted = JSON.stringify({ 'home': this.home, 'away': this.away });
+    window.localStorage.setItem('ncaa-persisted-teams', persisted);
 
     return team;
   }
@@ -40,7 +44,9 @@ class AnalyticsService {
         const results = [];
 
         Object.keys(weights).forEach((stat) => {
+          console.log('hey ho', stat, this.weights);
           const [weight, operator] = this.weights[stat];
+          console.log('hey ho 2');
           const homeStat = this.home[stat];
           const awayStat = this.away[stat];
           const homeWin = (
