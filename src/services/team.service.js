@@ -18,9 +18,9 @@ class TeamService {
    * locally for faster filtering
    */
   getTeamList() {
-    this.app.toggleLoading();
-
     if (this.teams.length > 0) return Promise.resolve(this.teams);
+
+    this.app.toggleLoading();
 
     return (new Query())
       .select(TEAM_NAME)
@@ -44,20 +44,12 @@ class TeamService {
    * @param {string} partial
    */
   filterTeamList(partial) {
-    this.app.toggleLoading();
-
     return this.getTeamList()
       .then(teams => (
         (typeof partial !== 'string' || partial.length < 2)
           ? (teams)
           : (teams.filter(team => team.toLowerCase().includes(partial.toLowerCase())))
-      ))
-      .then((teams) => {
-        this.app.toggleLoading();
-
-        return teams;
-      })
-      .catch(() => this.app.toggleLoading());
+      ));
   }
 
   /**
