@@ -1,4 +1,4 @@
-import './app.scss';
+import './styles/main.scss';
 import { SELECTORS } from './utils/constants';
 import { TeamService } from './services';
 import { AppCtrl, TeamCtrl } from './controllers';
