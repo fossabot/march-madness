@@ -23,10 +23,10 @@ const pullWeights = (modal) => {
     const input = el.querySelector(SELECTORS.numberInput);
     const cb = el.querySelector(SELECTORS.checkbox);
 
-    weights[el.getAttribute('for')] = [
-      input.value / 100,
-      (cb.checked) ? -1 : 1,
-    ];
+    weights[el.getAttribute('for')] = {
+      value: input.value / 100,
+      invert: cb.checked,
+    };
   });
 
   return weights;
@@ -37,10 +37,10 @@ const buildWeights = weights => (
   Object.keys(weights).map(key => (
     `<div class="weight" for="${key}">
       <div class="input-group">
-        <input type="number" value="${weights[key][0] * 100}" name="${key}" /> ${key}
+        <input type="number" value="${weights[key].value * 100}" name="${key}" /> ${key}
       </div>
       <div class="input-group">
-        <input type="checkbox" ${(weights[key][1] < 0) ? 'checked' : null}> Invert
+        <input type="checkbox" ${(weights[key].invert) ? 'checked' : null}> Invert
       </div>
     </div>`
   )).join('')
@@ -72,7 +72,7 @@ const closeModal = () => (evt) => {
   if (el.classList.contains('modal')) {
     el.classList.remove(SELECTORS.modalOpen);
     Analytics.updateStatWeightings(pullWeights(el));
-    TeamCtrl.runHeadToHead();
+    if (Analytics.isReady()) TeamCtrl.runHeadToHead();
   }
 };
 
