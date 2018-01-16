@@ -55,6 +55,15 @@
           "columnName": "TurnOversPerGame"
         }
       ]
+    },
+    {
+      "alias": "config",
+      "dataSetId": "363f52cd-9b43-4ef8-8be4-a6f214ef7def",
+      "fields": [
+        { "alias": "type", "columnName": "Type" },
+        { "alias": "name", "columnName": "Name" },
+        { "alias": "value", "columnName": "Value" }
+      ]
     }
   ],
   "ignore": [

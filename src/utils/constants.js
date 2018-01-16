@@ -2,6 +2,10 @@ module.exports.TEAM_ALIAS = 'teams';
 module.exports.TEAM_NAME = 'team';
 module.exports.TEAM_STAT_FIELDS = ['win', 'loss', 'sos', 'rpi'];
 
+module.exports.CONFIG_ALIAS = 'config';
+module.exports.CONFIG_FIELDS = ['name', 'value'];
+module.exports.CONFIG_WEIGHT_TYPE = 'weight';
+
 module.exports.HOME_ID = 'home-team';
 module.exports.AWAY_ID = 'away-team';
 

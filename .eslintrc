@@ -6,6 +6,7 @@
   },
   "rules": {
     "no-param-reassign": "off",
-    "class-methods-use-this": "off"
+    "class-methods-use-this": "off",
+    "newline-per-chained-call":"off",
   }
 }

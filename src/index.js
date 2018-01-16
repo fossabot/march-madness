@@ -1,6 +1,6 @@
 import './styles/main.scss';
 import { SELECTORS, HOME_ID, AWAY_ID } from './utils/constants';
-import { TeamService, Analytics } from './services';
+import { TeamService, Analytics, Configuration } from './services';
 import { AppCtrl, TeamCtrl } from './controllers';
 
 const bindEventListeners = (selector) => {
@@ -32,11 +32,19 @@ function init() {
       menus.forEach(menu => TeamCtrl.updateTeamMenu(menu)(teams));
     });
 
-  if (Analytics.isReady()) {
-    TeamCtrl.updateTeam(HOME_ID)(Analytics.home);
-    TeamCtrl.updateTeam(AWAY_ID)(Analytics.away);
-    TeamCtrl.runHeadToHead();
-  }
+  // update analytic weights from Domo
+  Configuration
+    .getWeightings()
+    .then((weights) => {
+      Analytics.updateStatWeightings(weights);
+
+      // rerun teams pulled from local storage
+      if (Analytics.isReady()) {
+        TeamCtrl.updateTeam(HOME_ID)(Analytics.home);
+        TeamCtrl.updateTeam(AWAY_ID)(Analytics.away);
+        TeamCtrl.runHeadToHead();
+      }
+    });
 }
 
 init();
