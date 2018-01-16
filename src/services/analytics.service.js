@@ -21,13 +21,13 @@ class AnalyticsService {
       rpi: { value: 0.25, invert: false },
     };
 
-    this.weights = persistedWeights ? persistedWeights : defaultWeights;
+    this.weights = persistedWeights || defaultWeights;
   }
 
   // Updates singletone reference for either home or away team
   setTeam(team, isHome) {
     this[isHome ? 'home' : 'away'] = team;
-    const persisted = JSON.stringify({ 'home': this.home, 'away': this.away });
+    const persisted = JSON.stringify({ home: this.home, away: this.away });
     window.localStorage.setItem('ncaa-persisted-teams', persisted);
 
     return team;

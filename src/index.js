@@ -1,5 +1,7 @@
+import * as domo from 'ryuu.js';
+
 import './styles/main.scss';
-import { SELECTORS, HOME_ID, AWAY_ID } from './utils/constants';
+import { SELECTORS, TEAM_ALIAS, HOME_ID, AWAY_ID } from './utils/constants';
 import { TeamService, Analytics, Configuration } from './services';
 import { AppCtrl, TeamCtrl } from './controllers';
 
@@ -10,6 +12,15 @@ const bindEventListeners = (selector) => {
     elements.forEach(el => el.addEventListener(event, listener))
   );
 };
+
+function updateTeamMenus(cache) {
+  return TeamService.getTeamList(cache)
+    .then((teams) => {
+      const menus = document.querySelectorAll(SELECTORS.teamList);
+      menus.forEach(menu => TeamCtrl.updateTeamMenu(menu)(teams));
+    })
+    .catch(AppCtrl.toggleLoading);
+}
 
 function init() {
   // bind search fields
@@ -26,11 +37,7 @@ function init() {
   bindEventListeners(SELECTORS.fullscreen)('click', AppCtrl.toggleFullScreen);
 
   // get initial team list
-  TeamService.getTeamList()
-    .then((teams) => {
-      const menus = document.querySelectorAll(SELECTORS.teamList);
-      menus.forEach(menu => TeamCtrl.updateTeamMenu(menu)(teams));
-    });
+  updateTeamMenus(true);
 
   // update analytic weights from Domo
   Configuration
@@ -46,5 +53,14 @@ function init() {
       }
     });
 }
+
+// global data listener
+domo.onDataUpdate((alias) => {
+  console.info(`dataset "${alias}" updated`, new Date().getTime());
+
+  if (alias === TEAM_ALIAS) {
+    updateTeamMenus(false).then(() => TeamCtrl.updateActiveTeams());
+  }
+});
 
 init();
