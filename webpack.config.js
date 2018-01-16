@@ -1,10 +1,11 @@
 /* eslint-disable import/no-extraneous-dependencies */
-
 const path = require('path');
 const autoprefixer = require('autoprefixer');
 const cssnano = require('cssnano');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const { Proxy } = require('@domoinc/ryuu-proxy');
+
 const manifest = require('./manifest.json');
 
 module.exports = (env) => {
@@ -36,31 +37,32 @@ module.exports = (env) => {
     },
 
     plugins: [
-      new CopyWebpackPlugin([
-        { from: 'assets/**/*' },
-      ]),
+      new CopyWebpackPlugin([{ from: 'assets/**/*' }]),
+      new ExtractTextPlugin('style.css'),
     ],
 
     module: {
       // Tells Webpack how to load other file extensions other than .js
       rules: [
 
-        // runs any Sass or CSS file through these style loaders
+        // runs any SCSS files through these style loaders
+        // and then extracts the compiled css into a seperate file
         {
-          test: /\.(scss|sass|css)$/,
-          use: [
-            { loader: 'style-loader' },
-            { loader: 'css-loader' },
-            { loader: 'sass-loader' },
-            {
-              // adds vendor prefixes to css
-              loader: 'postcss-loader',
-              options: {
-                ident: 'postcss',
-                plugins: postcssPlugins,
+          test: /\.scss$/,
+          use: ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: [
+              { loader: 'css-loader' },
+              { loader: 'sass-loader' },
+              {
+                loader: 'postcss-loader',
+                options: {
+                  ident: 'postcss',
+                  plugins: postcssPlugins,
+                },
               },
-            },
-          ],
+            ],
+          }),
         },
 
         // Runs JS through Babel enabling the use of ES6+ syntax
