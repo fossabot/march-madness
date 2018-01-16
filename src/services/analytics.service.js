@@ -6,21 +6,29 @@ import { AppCtrl } from '../controllers';
 class AnalyticsService {
   constructor() {
     this.app = AppCtrl;
-    this.home = undefined;
-    this.away = undefined;
+    const persistedTeams = JSON.parse(window.localStorage.getItem('ncaa-persisted-teams'));
+
+    this.home = persistedTeams && persistedTeams.home ? persistedTeams.home : undefined;
+    this.away = persistedTeams && persistedTeams.away ? persistedTeams.away : undefined;
+
+    const persistedWeights = JSON.parse(window.localStorage.getItem('ncaa-persisted-weights'));
 
     // hardcoding these for now
-    this.weights = {
+    const defaultWeights = {
       win: { value: 0.25, invert: false },
       loss: { value: 0.25, invert: true },
       sos: { value: 0.25, invert: true },
       rpi: { value: 0.25, invert: false },
     };
+
+    this.weights = persistedWeights ? persistedWeights : defaultWeights;
   }
 
   // Updates singletone reference for either home or away team
   setTeam(team, isHome) {
     this[isHome ? 'home' : 'away'] = team;
+    const persisted = JSON.stringify({ 'home': this.home, 'away': this.away });
+    window.localStorage.setItem('ncaa-persisted-teams', persisted);
 
     return team;
   }
@@ -84,6 +92,7 @@ class AnalyticsService {
   // update internal reference for weightings
   updateStatWeightings(weights) {
     this.weights = weights;
+    window.localStorage.setItem('ncaa-persisted-weights', JSON.stringify(weights));
   }
 }
 

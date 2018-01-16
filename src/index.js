@@ -1,6 +1,6 @@
 import './styles/main.scss';
-import { SELECTORS } from './utils/constants';
-import { TeamService } from './services';
+import { SELECTORS, HOME_ID, AWAY_ID } from './utils/constants';
+import { TeamService, Analytics } from './services';
 import { AppCtrl, TeamCtrl } from './controllers';
 
 const bindEventListeners = (selector) => {
@@ -31,6 +31,12 @@ function init() {
       const menus = document.querySelectorAll(SELECTORS.teamList);
       menus.forEach(menu => TeamCtrl.updateTeamMenu(menu)(teams));
     });
+
+  if (Analytics.isReady()) {
+    TeamCtrl.updateTeam(HOME_ID)(Analytics.home);
+    TeamCtrl.updateTeam(AWAY_ID)(Analytics.away);
+    TeamCtrl.runHeadToHead();
+  }
 }
 
 init();

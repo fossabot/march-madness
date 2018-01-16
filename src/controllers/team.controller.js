@@ -122,4 +122,5 @@ module.exports = {
   handleTeamSearch,
   toggleDropdown,
   updateTeamMenu,
+  updateTeam,
 };
