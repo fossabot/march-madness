@@ -81,14 +81,14 @@ class TeamService {
       .catch(() => this.app.toggleLoading());
   }
 
+  // helper function to prepare team resource for use in app
   prepareTeam(res) {
     const team = res[0];
 
+    // replace invalid data types with 0
     Object.keys(team).forEach((key) => {
       const stat = team[key];
-      if (typeof stat !== 'number' && typeof stat !== 'string') {
-        team[key] = 0;
-      }
+      if (typeof stat !== 'number' && typeof stat !== 'string') team[key] = 0;
     });
 
     return team;
