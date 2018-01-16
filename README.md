@@ -7,21 +7,21 @@ milestone.
 
 ## Milestones
 
-### [User Configuration](CustomApps/march-madness/blob/feat/configuration)
+### [User Configuration](/CustomApps/march-madness/blob/feat/configuration)
 
 ```git checkout feat/configuration```
 
 Demonstrates how to leverage a Domo dataset as your user configuration, enabling your app to be
 easily configured without hard-coding parameters in your app.
 
-### [Handling Data Updates](CustomApps/march-madness/blob/feat/on-data-update)
+### [Handling Data Updates](/CustomApps/march-madness/blob/feat/on-data-update)
 
 ```git checkout feat/on-data-update```
 
 Domo Apps behave just like standard Domo cards when data is updated, they are reloaded. Learn
 how to handle these events to prevent unwanted reloads when your user is in the middle of an operation.
 
-### [Full Screen](CustomApps/march-madness/blob/feat/fullscreen)
+### [Full Screen](/CustomApps/march-madness/blob/feat/fullscreen)
 
 ```git checkout feat/fullscreen```
 
@@ -29,13 +29,13 @@ Sometimes your app use case calls for a fullscreen display (think an app on a wa
 like to go from the standard page-view straight to fullscreen without going through the nested
 context menus.
 
-### [Navigation](CustomApps/march-madness/blob/feat/domo-navigation)
+### [Navigation](/CustomApps/march-madness/blob/feat/domo-navigation)
 
 ```git checkout feat/domo-navigation```
 
 How do Domo Apps handle navigation to internal pages and external websites? 
 
-### [Persistent State](CustomApps/march-madness/blob/feat/persist-state)
+### [Persistent State](/CustomApps/march-madness/blob/feat/persist-state)
 
 ```git checkout feat/persist-state```
 
@@ -44,7 +44,7 @@ slicing and dicing the data to get to the perfect view - and then has to leave t
 
 Will your user have to reselect all of those options again?
 
-### [All Features](CustomApps/march-madness/blob/feat/all-features)
+### [All Features](/CustomApps/march-madness/blob/feat/all-features)
 
 ```git checkout feat/all-features```
 
