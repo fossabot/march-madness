@@ -33,6 +33,7 @@
     "webpack-dev-server": "^2.9.7"
   },
   "dependencies": {
-    "@domoinc/query": "^1.1.0"
+    "@domoinc/query": "^1.1.0",
+    "ryuu.js": "^2.5.10"
   }
 }
