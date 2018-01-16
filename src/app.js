@@ -14,6 +14,8 @@ const bindEventListeners = (selector) => {
 };
 
 function updateTeamMenus(cache) {
+  AppCtrl.toggleLoading();
+
   return TeamService.getTeamList(cache)
     .then((teams) => {
       const menus = document.querySelectorAll(SELECTORS.teamList);
@@ -36,12 +38,12 @@ function init() {
 
   // get initial team list
   updateTeamMenus(true);
-
-  TeamCtrl.updateActiveTeams();
 }
 
 // global data listener
 domo.onDataUpdate((alias) => {
+  console.info(`dataset "${alias}" updated`, new Date().getTime());
+
   if (alias === TEAM_ALIAS) {
     updateTeamMenus(false).then(() => TeamCtrl.updateActiveTeams());
   }
