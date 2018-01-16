@@ -45,20 +45,12 @@ class TeamService {
    * @param {string} partial
    */
   filterTeamList(partial) {
-    this.app.toggleLoading();
-
     return this.getTeamList()
       .then(teams => (
         (typeof partial !== 'string' || partial.length < 2)
           ? (teams)
           : (teams.filter(team => team.toLowerCase().includes(partial.toLowerCase())))
-      ))
-      .then((teams) => {
-        this.app.toggleLoading();
-
-        return teams;
-      })
-      .catch(() => this.app.toggleLoading());
+      ));
   }
 
   /**
