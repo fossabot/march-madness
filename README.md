@@ -44,9 +44,9 @@ slicing and dicing the data to get to the perfect view - and then has to leave t
 
 Will your user have to reselect all of those options again?
 
-### [All Features](https://git.empdev.domo.com/CustomApps/march-madness/blob/feat/all-features)
+### [All Features](https://git.empdev.domo.com/CustomApps/march-madness/blob/feat/all)
 
-```git checkout feat/all-features```
+```git checkout feat/all```
 
 Showing the app with all of these features combined.
 
