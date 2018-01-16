@@ -16,6 +16,7 @@ module.exports.SELECTORS = {
   settings: '.controls .control[for="settings"]',
   modal: '.modal',
   modalOpen: 'open',
+  fullscreen: '.fullscreen-button',
 
   weight: '.weight',
   numberInput: 'input[type="number"]',

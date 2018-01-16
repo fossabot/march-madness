@@ -22,6 +22,9 @@ function init() {
   bindEventListeners(SELECTORS.settings)('click', AppCtrl.openModal());
   bindEventListeners(SELECTORS.modal)('click', AppCtrl.closeModal());
 
+  // bind fullscreen function
+  bindEventListeners(SELECTORS.fullscreen)('click', AppCtrl.toggleFullScreen);
+
   // get initial team list
   TeamService.getTeamList()
     .then((teams) => {

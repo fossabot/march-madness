@@ -1,0 +1,23 @@
+.fullscreen-button {
+  position: absolute;
+  left: 20px;
+  top: 32px;
+  display: flex;
+  height: 30px;
+  width: 30px;
+  margin-right: 10px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  > .fullscreen-icon {
+    height: 30px;
+    width: 30px;
+  }
+}
+
+@media screen and (max-width: 840px) {
+  .fullscreen-button {
+    display: none;
+  }
+}

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+  <title>Asset 1</title>
+  <g id="Layer_2" data-name="Layer 2">
+    <g id="Layer_1-2" data-name="Layer 1"><path d="M5,11v4H1V11H5m1-1H0v6H6V10Z" style="fill:#fff"/><path d="M7.29,8.71a.4.4,0,0,0,.57,0l4.53-4.54V6.79a.4.4,0,0,0,.8,0V3.21a.4.4,0,0,0-.4-.4H9.21a.4.4,0,1,0,0,.8h2.61L7.29,8.14A.4.4,0,0,0,7.29,8.71Z" style="fill:#fff"/><polygon points="0 0 0 8 1 8 1 1 15 1 15 15 8 15 8 16 16 16 16 0 0 0" style="fill:#fff"/></g>
+  </g>
+</svg>

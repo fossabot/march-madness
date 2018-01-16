@@ -9,6 +9,42 @@ import { SELECTORS } from '../utils/constants';
  * the UI related to app-wide elements
  */
 
+// toggle fullscreen mode
+const toggleFullScreen = () => {
+  console.log('toggle it');
+  const docElem = document.documentElement;
+  const doc = document;
+  const fullScreen = (
+    doc.fullscreenElement || doc.mozFullScreenElement || doc.webkitFullscreenElement
+  );
+
+  if (!fullScreen) {
+    if (docElem.requestFullscreen) {
+      return docElem.requestFullscreen();
+    } else if (docElem.mozRequestFullScreen) {
+      return docElem.mozRequestFullScreen();
+    } else if (docElem.webkitRequestFullscreen) {
+      return docElem.webkitRequestFullscreen();
+    } else if (docElem.msRequestFullscreen) {
+      return docElem.msRequestFullscreen();
+    } else {
+      return console.error('Fullscreen is unavailable.');
+    }
+  } else {
+    if (doc.exitFullscreen) {
+      return doc.exitFullscreen();
+    } else if (doc.mozCancelFullScreen) {
+      return doc.mozCancelFullScreen();
+    } else if (doc.webkitExitFullscreen) {
+      return doc.webkitExitFullscreen();
+    } else if (doc.msExitFullscreen) {
+      return doc.msExitFullscreen();
+    } else {
+      return console.error('No Fullscreen to exit.');
+    }
+  }
+};
+
 // Show / Hide loading spinner
 const toggleLoading = () => {
   document
@@ -80,4 +116,5 @@ module.exports = {
   toggleLoading,
   openModal,
   closeModal,
+  toggleFullScreen,
 };
