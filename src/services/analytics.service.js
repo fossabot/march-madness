@@ -11,13 +11,17 @@ class AnalyticsService {
     this.home = persistedTeams && persistedTeams.home ? persistedTeams.home : undefined;
     this.away = persistedTeams && persistedTeams.away ? persistedTeams.away : undefined;
 
+    const persistedWeights = JSON.parse(window.localStorage.getItem('ncaa-persisted-weights'));
+
     // hardcoding these for now
-    this.weights = {
+    const defaultWeights = {
       win: { value: 0.25, invert: false },
       loss: { value: 0.25, invert: true },
       sos: { value: 0.25, invert: true },
       rpi: { value: 0.25, invert: false },
     };
+
+    this.weights = persistedWeights ? persistedWeights : defaultWeights;
   }
 
   // Updates singletone reference for either home or away team
@@ -44,25 +48,23 @@ class AnalyticsService {
         const results = [];
 
         Object.keys(weights).forEach((stat) => {
-          console.log('hey ho', stat, this.weights);
-          const [weight, operator] = this.weights[stat];
-          console.log('hey ho 2');
+          const { value, invert } = this.weights[stat];
           const homeStat = this.home[stat];
           const awayStat = this.away[stat];
+
           const homeWin = (
-            (operator < 0 && homeStat <= awayStat)
-            || (operator > 0 && homeStat >= awayStat)
+            (invert && homeStat <= awayStat)
+            || (!invert && homeStat >= awayStat)
           );
 
           results.push({
             stat,
             results: [homeWin, !homeWin],
-            weights: [homeWin ? weight : 0, (!homeWin) ? weight : 0],
+            weights: [homeWin ? value : 0, (!homeWin) ? value : 0],
           });
         });
 
         this.app.toggleLoading();
-
         return results;
       })
       .catch(() => this.app.toggleLoading());
@@ -90,6 +92,7 @@ class AnalyticsService {
   // update internal reference for weightings
   updateStatWeightings(weights) {
     this.weights = weights;
+    window.localStorage.setItem('ncaa-persisted-weights', JSON.stringify(weights));
   }
 }
 

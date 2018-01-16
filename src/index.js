@@ -32,14 +32,7 @@ function init() {
   if (Analytics.isReady()) {
     TeamCtrl.updateTeam(HOME_ID)(Analytics.home);
     TeamCtrl.updateTeam(AWAY_ID)(Analytics.away);
-    // const ids = ['home', 'away'];
-    // ids.forEach((id) => {
-    //   TeamService.getTeamStats('name', id)
-    //   .then(team => TeamCtrl.updateTeam(id)(team))
-    // })
-    // Analytics.run().then(() => {
     TeamCtrl.runHeadToHead();
-    // });
   }
 }
 
