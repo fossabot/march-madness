@@ -1,6 +1,31 @@
+import domo from 'ryuu.js';
 import { AppCtrl } from '../controllers';
 import { TeamService, Analytics } from '../services';
 import { SELECTORS, TEAM_NAME, HOME_ID, AWAY_ID } from '../utils/constants';
+
+const PAGE_URL = 'https://education.domo.com/page/1698810256';
+const DATASOURCE_ID = 'daa13cae-3e23-42f8-aafb-1483410c276e';
+
+const createPageFilters = (teamName) => {
+  const filters = [
+    {
+      column: 'TEAM',
+      dataSourceId: DATASOURCE_ID,
+      dataType: 'string',
+      operand: 'IN',
+      values: [teamName],
+    },
+  ];
+  return JSON.stringify(filters);
+};
+
+const viewDetails = () => (evt) => {
+  const team = evt.target.parentNode.querySelector(SELECTORS.teamTitle).innerText;
+
+  const pageFilters = createPageFilters(team);
+  const target = `${PAGE_URL}?pfilters=${pageFilters}`;
+  domo.navigate(target, true);
+};
 
 const toggleDropdown = () => (evt) => {
   const dm = (typeof evt.target !== 'undefined')
@@ -119,4 +144,5 @@ module.exports = {
   handleTeamSearch,
   toggleDropdown,
   updateTeamMenu,
+  viewDetails,
 };
