@@ -3,9 +3,12 @@ import { AppCtrl } from '../controllers';
 import { TeamService, Analytics } from '../services';
 import { SELECTORS, TEAM_NAME, HOME_ID, AWAY_ID } from '../utils/constants';
 
+// Navigation destination
 const PAGE_URL = 'https://education.domo.com/page/1698810256';
+// the same id that is found in the manifest file
 const DATASOURCE_ID = 'daa13cae-3e23-42f8-aafb-1483410c276e';
 
+// Create page filters to pass into the URL
 const createPageFilters = (teamName) => {
   const filters = [
     {
@@ -19,6 +22,9 @@ const createPageFilters = (teamName) => {
   return JSON.stringify(filters);
 };
 
+// this is called when the user clicks the "View Details" button. It grabs the team name,
+// creates a url with page filters and then calls domo.navigate. More documentation on
+// domo.navigate can be found here: https://developer.domo.com/docs/dev-studio-references/domo-js#domo.navigate
 const viewDetails = () => (evt) => {
   const team = evt.target.parentNode.querySelector(SELECTORS.teamTitle).innerText;
 
