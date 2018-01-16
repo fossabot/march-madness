@@ -94,6 +94,7 @@ const handleTeamSelect = (name, id) => (evt) => {
     });
 };
 
+// Update the dropdown menu content
 const updateTeamMenu = (menu) => {
   menu.innerHTML = null;
 
@@ -118,6 +119,7 @@ const handleTeamSearch = () => (e) => {
     .then(teams => updateTeamMenu(dd)(teams));
 };
 
+// Force a "teamSelect" event when Domo data refreshes
 const updateActiveTeams = () => {
   // What are the active team names?
   const home = document.querySelector(`#${HOME_ID} .name`).innerText;
