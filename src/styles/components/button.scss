@@ -1,0 +1,19 @@
+.button {
+  background-color: $blue;
+  color: white;
+  text-transform: uppercase;
+  font-weight: 300;
+  padding: 10px 30px;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    transition: background-color 0.3s ease-in-out;
+    background-color: $green;
+  }
+
+  &[disabled] {
+    cursor: not-allowed;
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+}

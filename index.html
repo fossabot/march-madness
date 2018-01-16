@@ -5,10 +5,84 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>March Madness</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="./dist/bundle.css">
 </head>
 <body>
-  <h1>Hello World</h1>
-  <img class="logo" />
+
+  <div class="content">
+    <div class="controls">
+      <a class="control" for="settings"><i class="fa fa-cog"></i></a>
+    </div>
+
+    <div class="teams">
+
+        <!-- Home Team -->
+        <div id="home-team" class="team">
+          <span class="icon fa-stack fa-large">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-check fa-stack-1x fa-inverse"></i>
+          </span>
+
+          <header>
+            <div class="dropdown">
+              <a class="menu">
+                <span class="name">Home</span>
+                <i class="fa fa-chevron-down"></i>
+              </a>
+
+              <div class="dropdown-content">
+                <header>
+                  <input type="text" placeholder="Search..." value="" />
+                </header>
+                <div class="items" for="home-team"></div>
+              </div>
+            </div>
+          </header>
+
+          <div class="stats"></div>
+          <button class="button" disabled>View Details</button>
+        </div>
+
+        <!-- Away Team -->
+        <div id="away-team" class="team">
+          <span class="icon fa-stack fa-large">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-check fa-stack-1x fa-inverse"></i>
+          </span>
+
+          <header>
+            <div class="dropdown">
+              <a class="menu">
+                <span class="name">Away</span>
+                <i class="fa fa-chevron-down"></i>
+              </a>
+              <div class="dropdown-content">
+                <header>
+                  <input type="text" placeholder="Search..." value="" />
+                </header>
+                <div class="items" for="away-team"></div>
+              </div>
+            </div>
+          </header>
+          <div class="stats"></div>
+          <button class="button" disabled>View Details</button>
+        </div>
+      </div>
+
+  </div>
+
+  <!-- Loading Icon -->
+  <div class="spinner hide">
+    <div class="bounce">
+      <div class="bounce1"></div>
+      <div class="bounce2"></div>
+      <div class="bounce3"></div>
+    </div>
+  </div>
+
+  <div class="modal"></div>
 
   <script src="./dist/bundle.js"></script>
 </body>

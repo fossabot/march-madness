@@ -4,5 +4,8 @@
     "browser": true,
     "node": true
   },
-  "rules": {}
+  "rules": {
+    "no-param-reassign": "off",
+    "class-methods-use-this": "off"
+  }
 }

@@ -1,6 +1,33 @@
-require('./assets/styles/main.scss');
+import './styles/main.scss';
+import { SELECTORS } from './utils/constants';
+import { TeamService } from './services';
+import { AppCtrl, TeamCtrl } from './controllers';
 
-const logo = require('./assets/images/domo.png');
+const bindEventListeners = (selector) => {
+  const elements = document.querySelectorAll(selector);
 
-const images = document.querySelectorAll('.logo');
-images.forEach(img => img.setAttribute('src', logo));
+  return (event, listener) => (
+    elements.forEach(el => el.addEventListener(event, listener))
+  );
+};
+
+function init() {
+  // bind search fields
+  bindEventListeners(SELECTORS.search)('input', TeamCtrl.handleTeamSearch());
+
+  // bind dropdown menus
+  bindEventListeners(SELECTORS.dropdown)('click', TeamCtrl.toggleDropdown());
+
+  // bind settings modal
+  bindEventListeners(SELECTORS.settings)('click', AppCtrl.openModal());
+  bindEventListeners(SELECTORS.modal)('click', AppCtrl.closeModal());
+
+  // get initial team list
+  TeamService.getTeamList()
+    .then((teams) => {
+      const menus = document.querySelectorAll(SELECTORS.teamList);
+      menus.forEach(menu => TeamCtrl.updateTeamMenu(menu)(teams));
+    });
+}
+
+init();
