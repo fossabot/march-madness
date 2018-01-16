@@ -2,10 +2,10 @@ import { AppCtrl } from '../controllers';
 import { TeamService, Analytics } from '../services';
 import { SELECTORS, TEAM_NAME, HOME_ID, AWAY_ID } from '../utils/constants';
 
-const toggleDropdown = () => (evt) => {
-  const dm = (typeof evt.target !== 'undefined')
-    ? evt.target.parentNode.parentNode.querySelector(SELECTORS.dropdownContent)
-    : evt.parentNode;
+const toggleDropdown = id => (evt) => {
+  const dm = (typeof id === 'string')
+    ? document.querySelector(`#${id} ${SELECTORS.dropdownContent}`)
+    : evt.target.parentNode.parentNode.querySelector(SELECTORS.dropdownContent);
 
   dm.classList.toggle('open');
 };
@@ -74,17 +74,17 @@ const runHeadToHead = () => {
   );
 };
 
-const handleTeamSelect = () => (evt) => {
+const handleTeamSelect = (name, id) => (evt) => {
   AppCtrl.toggleLoading();
 
-  const name = evt.target.innerText;
-  const id = evt.target.parentElement.getAttribute('for');
+  const teamName = (typeof name === 'string') ? name : evt.target.innerText;
+  const teamID = (typeof id === 'string') ? id : evt.target.parentElement.getAttribute('for');
 
-  return TeamService.getTeamStats(name, id === HOME_ID)
-    .then(team => updateTeam(id)(team))
+  return TeamService.getTeamStats(teamName, teamID === HOME_ID)
+    .then(team => updateTeam(teamID)(team))
     .then(() => {
       AppCtrl.toggleLoading();
-      toggleDropdown()(evt.target.parentNode);
+      toggleDropdown(teamID)();
 
       if (Analytics.isReady()) runHeadToHead();
     })
@@ -114,9 +114,20 @@ const handleTeamSearch = () => (e) => {
     .then(teams => updateTeamMenu(dd)(teams));
 };
 
+const updateActiveTeams = () => {
+  // What are the active team names?
+  const home = document.querySelector(`#${HOME_ID} .name`).innerText;
+  const away = document.querySelector(`#${AWAY_ID} .name`).innerText;
+
+  // Only update if they're not the default placeholders
+  if (home !== 'Home') handleTeamSelect(home, HOME_ID);
+  if (away !== 'Away') handleTeamSelect(away, AWAY_ID);
+};
+
 module.exports = {
   runHeadToHead,
   handleTeamSearch,
   toggleDropdown,
   updateTeamMenu,
+  updateActiveTeams,
 };

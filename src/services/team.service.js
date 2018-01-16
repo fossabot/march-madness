@@ -15,7 +15,8 @@ class TeamService {
    * Get an array of team names from Domo. Will cache the results
    * locally for faster filtering
    */
-  getTeamList() {
+  getTeamList(cache = true) {
+    if (!cache) this.teams = [];
     if (this.teams.length > 0) return Promise.resolve(this.teams);
 
     return (new Query())
@@ -25,7 +26,7 @@ class TeamService {
       .then(res => res.map(row => row.team))
       .then(teams => teams.sort())
       .then((teams) => {
-        this.teams = teams;
+        if (cache) this.teams = teams;
 
         return this.teams;
       });
