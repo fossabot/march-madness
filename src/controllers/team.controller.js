@@ -33,6 +33,14 @@ const viewDetails = () => (evt) => {
   domo.navigate(target, true);
 };
 
+/**
+ * Team Controller
+ *
+ * Functions for interacting with the DOM to manage elements
+ * related to the "Home" and "Away" team
+ */
+
+// Show / Hide team selector menus
 const toggleDropdown = () => (evt) => {
   const dm = (typeof evt.target !== 'undefined')
     ? evt.target.parentNode.parentNode.querySelector(SELECTORS.dropdownContent)
@@ -41,6 +49,7 @@ const toggleDropdown = () => (evt) => {
   dm.classList.toggle('open');
 };
 
+// render team stat details
 const updateTeam = (id) => {
   const el = document.getElementById(id);
 
@@ -65,6 +74,7 @@ const updateTeam = (id) => {
   };
 };
 
+// determine which team stat won
 const updateTeamStat = (stat) => {
   const stats = document.querySelectorAll(SELECTORS.teamStat(stat.stat));
 
@@ -79,8 +89,10 @@ const updateTeamStat = (stat) => {
   return stat;
 };
 
+// update all team stats for win/loss
 const updateTeamStats = results => results.map(updateTeamStat);
 
+// update the winning team container class
 const findWinningTeam = (results) => {
   if (Analytics.homeWinner(results)) {
     document.getElementById(HOME_ID).classList.add(SELECTORS.winningTeam);
@@ -93,33 +105,26 @@ const findWinningTeam = (results) => {
   return results;
 };
 
-const runHeadToHead = () => {
-  AppCtrl.toggleLoading();
+// helper function to chain all the necessary functions together to
+// determine which team has won
+const runHeadToHead = () => (
+  Analytics.run()
+    .then(updateTeamStats)
+    .then(findWinningTeam)
+);
 
-  return (
-    Analytics.run()
-      .then(updateTeamStats)
-      .then(findWinningTeam)
-      .then(() => AppCtrl.toggleLoading())
-      .catch(() => AppCtrl.toggleLoading())
-  );
-};
-
+// What to do when a team is selected from the dropdown menu
 const handleTeamSelect = () => (evt) => {
-  AppCtrl.toggleLoading();
-
   const name = evt.target.innerText;
   const id = evt.target.parentElement.getAttribute('for');
 
   return TeamService.getTeamStats(name, id === HOME_ID)
     .then(team => updateTeam(id)(team))
     .then(() => {
-      AppCtrl.toggleLoading();
       toggleDropdown()(evt.target.parentNode);
 
       if (Analytics.isReady()) runHeadToHead();
-    })
-    .catch(AppCtrl.toggleLoading);
+    });
 };
 
 const updateTeamMenu = (menu) => {
@@ -136,6 +141,7 @@ const updateTeamMenu = (menu) => {
   };
 };
 
+// What to do when a user searches in the dropdown menu
 const handleTeamSearch = () => (e) => {
   const qs = e.target.value;
   const dd = e.target.parentElement.parentElement.querySelector('.items');

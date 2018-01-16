@@ -1,4 +1,4 @@
-import './app.scss';
+import './styles/main.scss';
 import { SELECTORS } from './utils/constants';
 import { TeamService } from './services';
 import { AppCtrl, TeamCtrl } from './controllers';
@@ -30,9 +30,7 @@ function init() {
     .then((teams) => {
       const menus = document.querySelectorAll(SELECTORS.teamList);
       menus.forEach(menu => TeamCtrl.updateTeamMenu(menu)(teams));
-      AppCtrl.toggleLoading();
-    })
-    .catch(AppCtrl.toggleLoading);
+    });
 }
 
 init();

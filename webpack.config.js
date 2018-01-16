@@ -28,7 +28,7 @@ module.exports = (env) => {
   return {
 
     // where's the main js file
-    entry: path.join(__dirname, 'src', 'app'),
+    entry: path.join(__dirname, 'src', 'index'),
 
     // where to put bundled files
     output: {
@@ -37,8 +37,8 @@ module.exports = (env) => {
     },
 
     plugins: [
-      new CopyWebpackPlugin([{ from: 'assets/**/*' }]),
-      new ExtractTextPlugin('style.css'),
+      new CopyWebpackPlugin([{ from: 'public/**/*' }]),
+      new ExtractTextPlugin('bundle.css'),
     ],
 
     module: {
