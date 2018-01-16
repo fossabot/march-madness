@@ -1,4 +1,3 @@
-import { AppCtrl } from '../controllers';
 import { TeamService, Analytics } from '../services';
 import { SELECTORS, TEAM_NAME, HOME_ID, AWAY_ID } from '../utils/constants';
 
