@@ -2,6 +2,14 @@ import { AppCtrl } from '../controllers';
 import { TeamService, Analytics } from '../services';
 import { SELECTORS, TEAM_NAME, HOME_ID, AWAY_ID } from '../utils/constants';
 
+/**
+ * Team Controller
+ *
+ * Functions for interacting with the DOM to manage elements
+ * related to the "Home" and "Away" team
+ */
+
+// Show / Hide team selector menus
 const toggleDropdown = () => (evt) => {
   const dm = (typeof evt.target !== 'undefined')
     ? evt.target.parentNode.parentNode.querySelector(SELECTORS.dropdownContent)
@@ -10,6 +18,7 @@ const toggleDropdown = () => (evt) => {
   dm.classList.toggle('open');
 };
 
+// render team stat details
 const updateTeam = (id) => {
   const el = document.getElementById(id);
 
@@ -34,6 +43,7 @@ const updateTeam = (id) => {
   };
 };
 
+// determine which team stat won
 const updateTeamStat = (stat) => {
   const stats = document.querySelectorAll(SELECTORS.teamStat(stat.stat));
 
@@ -48,8 +58,10 @@ const updateTeamStat = (stat) => {
   return stat;
 };
 
+// update all team stats for win/loss
 const updateTeamStats = results => results.map(updateTeamStat);
 
+// update the winning team container class
 const findWinningTeam = (results) => {
   if (Analytics.homeWinner(results)) {
     document.getElementById(HOME_ID).classList.add(SELECTORS.winningTeam);
@@ -62,6 +74,8 @@ const findWinningTeam = (results) => {
   return results;
 };
 
+// helper function to chain all the necessary functions together to
+// determine which team has won
 const runHeadToHead = () => {
   AppCtrl.toggleLoading();
 
@@ -74,6 +88,7 @@ const runHeadToHead = () => {
   );
 };
 
+// What to do when a team is selected from the dropdown menu
 const handleTeamSelect = () => (evt) => {
   AppCtrl.toggleLoading();
 
@@ -105,6 +120,7 @@ const updateTeamMenu = (menu) => {
   };
 };
 
+// What to do when a user searches in the dropdown menu
 const handleTeamSearch = () => (e) => {
   const qs = e.target.value;
   const dd = e.target.parentElement.parentElement.querySelector('.items');

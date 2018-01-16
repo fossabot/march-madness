@@ -1,3 +1,6 @@
+/**
+ * Service for performing simple analysis
+ */
 class AnalyticsService {
   constructor() {
     this.home = undefined;
@@ -12,16 +15,19 @@ class AnalyticsService {
     };
   }
 
+  // Updates singletone reference for either home or away team
   setTeam(team, isHome) {
     this[isHome ? 'home' : 'away'] = team;
 
     return team;
   }
 
+  // have both teams been set and model ready to run?
   isReady() {
     return (this.home !== undefined && this.away !== undefined);
   }
 
+  // calculate weighted team stats
   run() {
     return this
       .getStatWeightings()
@@ -48,6 +54,7 @@ class AnalyticsService {
       });
   }
 
+  // does home have more points than away?
   homeWinner(results) {
     const [homeTotal, awayTotal] = results
       .map(s => s.weights)
@@ -61,13 +68,16 @@ class AnalyticsService {
     return homeTotal >= awayTotal;
   }
 
+  // get internal weighting reference
   getStatWeightings() {
     return Promise.resolve(this.weights);
   }
 
+  // update internal reference for weightings
   updateStatWeightings(weights) {
     this.weights = weights;
   }
 }
 
+// export a singleton
 module.exports = new AnalyticsService();

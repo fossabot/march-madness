@@ -3,7 +3,7 @@ import { TEAM_STAT_FIELDS, TEAM_ALIAS, TEAM_NAME } from '../utils/constants';
 import { Analytics } from '../services';
 
 /**
- * Service for interacting with the "team" resource
+ * Service for interacting with the "team" resource in Domo
  */
 class TeamService {
   constructor() {
