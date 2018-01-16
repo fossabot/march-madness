@@ -1,18 +1,17 @@
-import domo from 'ryuu.js';
+// import domo from 'ryuu.js';
+import Query from '@domoinc/query';
 import { TeamService, Analytics } from '../services';
-import { SELECTORS, TEAM_NAME, HOME_ID, AWAY_ID } from '../utils/constants';
+import { SELECTORS, TEAM_NAME, HOME_ID, AWAY_ID, TEAM_ALIAS } from '../utils/constants';
 
 // Navigation destination
-const PAGE_URL = 'https://education.domo.com/page/1698810256';
-// the same id that is found in the manifest file
-const DATASOURCE_ID = 'daa13cae-3e23-42f8-aafb-1483410c276e';
+const PAGE_URL = '/page/1698810256';
 
 // Create page filters to pass into the URL
-const createPageFilters = (teamName) => {
+const createPageFilters = (teamName, column, dataSourceId) => {
   const filters = [
     {
-      column: 'TEAM',
-      dataSourceId: DATASOURCE_ID,
+      column,
+      dataSourceId,
       dataType: 'string',
       operand: 'IN',
       values: [teamName],
@@ -25,11 +24,22 @@ const createPageFilters = (teamName) => {
 // creates a url with page filters and then calls domo.navigate. More documentation on
 // domo.navigate can be found here: https://developer.domo.com/docs/dev-studio-references/domo-js#domo.navigate
 const viewDetails = () => (evt) => {
-  const team = evt.target.parentNode.querySelector(SELECTORS.teamTitle).innerText;
+  // we first fire off a query so that we can retrieve the unaliased column name
+  // along with the data source id, both of which we need to perform page filtering on navigation
+  new Query()
+    .select(TEAM_NAME)
+    .groupBy(TEAM_NAME)
+    .limit(1)
+    .fetch(TEAM_ALIAS, { acceptType: 'application/json' })
+    .then((data) => {
+      const { datasource, columns } = data;
+      const unaliasedColumn = columns[0];
+      const team = evt.target.parentNode.querySelector(SELECTORS.teamTitle).innerText;
 
-  const pageFilters = createPageFilters(team);
-  const target = `${PAGE_URL}?pfilters=${pageFilters}`;
-  domo.navigate(target, true);
+      const pageFilters = createPageFilters(team, unaliasedColumn, datasource);
+      const target = `${PAGE_URL}?pfilters=${pageFilters}`;
+      domo.navigate(target);
+    });
 };
 
 /**
