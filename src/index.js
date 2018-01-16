@@ -27,9 +27,7 @@ function init() {
     .then((teams) => {
       const menus = document.querySelectorAll(SELECTORS.teamList);
       menus.forEach(menu => TeamCtrl.updateTeamMenu(menu)(teams));
-      AppCtrl.toggleLoading();
-    })
-    .catch(AppCtrl.toggleLoading);
+    });
 }
 
 init();

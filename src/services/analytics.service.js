@@ -1,8 +1,11 @@
+import { AppCtrl } from '../controllers';
+
 /**
  * Service for performing simple analysis
  */
 class AnalyticsService {
   constructor() {
+    this.app = AppCtrl;
     this.home = undefined;
     this.away = undefined;
 
@@ -29,6 +32,8 @@ class AnalyticsService {
 
   // calculate weighted team stats
   run() {
+    this.app.toggleLoading();
+
     return this
       .getStatWeightings()
       .then((weights) => {
@@ -50,8 +55,11 @@ class AnalyticsService {
           });
         });
 
+        this.app.toggleLoading();
+
         return results;
-      });
+      })
+      .catch(() => this.app.toggleLoading());
   }
 
   // does home have more points than away?

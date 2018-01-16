@@ -48,7 +48,6 @@ const buildWeights = weights => (
 
 // Show stat weighting modal
 const openModal = () => () => {
-  toggleLoading();
   const el = document.querySelector(SELECTORS.modal);
 
   return Analytics.getStatWeightings()
@@ -62,7 +61,6 @@ const openModal = () => () => {
           </div>
       `;
 
-      toggleLoading();
       document.querySelector(SELECTORS.modal).classList.add(SELECTORS.modalOpen);
     });
 };

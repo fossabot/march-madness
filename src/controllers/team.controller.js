@@ -76,34 +76,24 @@ const findWinningTeam = (results) => {
 
 // helper function to chain all the necessary functions together to
 // determine which team has won
-const runHeadToHead = () => {
-  AppCtrl.toggleLoading();
-
-  return (
-    Analytics.run()
-      .then(updateTeamStats)
-      .then(findWinningTeam)
-      .then(() => AppCtrl.toggleLoading())
-      .catch(() => AppCtrl.toggleLoading())
-  );
-};
+const runHeadToHead = () => (
+  Analytics.run()
+    .then(updateTeamStats)
+    .then(findWinningTeam)
+);
 
 // What to do when a team is selected from the dropdown menu
 const handleTeamSelect = () => (evt) => {
-  AppCtrl.toggleLoading();
-
   const name = evt.target.innerText;
   const id = evt.target.parentElement.getAttribute('for');
 
   return TeamService.getTeamStats(name, id === HOME_ID)
     .then(team => updateTeam(id)(team))
     .then(() => {
-      AppCtrl.toggleLoading();
       toggleDropdown()(evt.target.parentNode);
 
       if (Analytics.isReady()) runHeadToHead();
-    })
-    .catch(AppCtrl.toggleLoading);
+    });
 };
 
 const updateTeamMenu = (menu) => {
