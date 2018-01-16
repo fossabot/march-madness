@@ -11,10 +11,10 @@ class AnalyticsService {
 
     // hardcoding these for now
     this.weights = {
-      win: [0.25, 1],
-      loss: [0.25, -1],
-      sos: [0.25, -1],
-      rpi: [0.25, 1],
+      win: { value: 0.25, invert: false },
+      loss: { value: 0.25, invert: true },
+      sos: { value: 0.25, invert: true },
+      rpi: { value: 0.25, invert: false },
     };
   }
 
