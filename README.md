@@ -7,21 +7,21 @@ milestone.
 
 ## Milestones
 
-### [User Configuration](https://git.empdev.domo.com/CustomApps/march-madness/tree/feat/configuration)
+### [User Configuration](https://github.com/DomoApps/march-madness/tree/feat/configuration)
 
 ```git checkout feat/configuration```
 
 Demonstrates how to leverage a Domo dataset as your user configuration, enabling your app to be
 easily configured without hard-coding parameters in your app.
 
-### [Handling Data Updates](https://git.empdev.domo.com/CustomApps/march-madness/blob/feat/on-data-update)
+### [Handling Data Updates](https://github.com/DomoApps/march-madness/tree/feat/on-data-update)
 
 ```git checkout feat/on-data-update```
 
 Domo Apps behave just like standard Domo cards when data is updated, they are reloaded. Learn
 how to handle these events to prevent unwanted reloads when your user is in the middle of an operation.
 
-### [Full Screen](https://git.empdev.domo.com/CustomApps/march-madness/blob/feat/fullscreen)
+### [Full Screen](https://github.com/DomoApps/march-madness/tree/feat/fullscreen)
 
 ```git checkout feat/fullscreen```
 
@@ -29,13 +29,13 @@ Sometimes your app use case calls for a fullscreen display (think an app on a wa
 like to go from the standard page-view straight to fullscreen without going through the nested
 context menus.
 
-### [Navigation](https://git.empdev.domo.com/CustomApps/march-madness/blob/feat/domo-navigation)
+### [Navigation](https://github.com/DomoApps/march-madness/tree/feat/domo-navigation)
 
 ```git checkout feat/domo-navigation```
 
 How do Domo Apps handle navigation to internal pages and external websites? 
 
-### [Persistent State](https://git.empdev.domo.com/CustomApps/march-madness/blob/feat/persist-state)
+### [Persistent State](https://github.com/DomoApps/march-madness/tree/feat/persist-state)
 
 ```git checkout feat/persist-state```
 
@@ -44,7 +44,7 @@ slicing and dicing the data to get to the perfect view - and then has to leave t
 
 Will your user have to reselect all of those options again?
 
-### [All Features](https://git.empdev.domo.com/CustomApps/march-madness/blob/feat/all)
+### [All Features](https://github.com/DomoApps/march-madness/tree/feat/all)
 
 ```git checkout feat/all```
 
