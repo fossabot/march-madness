@@ -1,59 +1,23 @@
 {
   "name": "march-madness",
   "version": "1.0.0",
-  "size": {
-    "width": 5,
-    "height": 3
-  },
+  "size": { "width": 5, "height": 3 },
   "mapping": [
     {
       "alias": "teams",
       "dataSetId": "daa13cae-3e23-42f8-aafb-1483410c276e",
       "fields": [
-        {
-          "alias": "team",
-          "columnName": "TEAM"
-        },
-        {
-          "alias": "gp",
-          "columnName": "GamesPlayed"
-        },
-        {
-          "alias": "win",
-          "columnName": "WIN"
-        },
-        {
-          "alias": "loss",
-          "columnName": "LOSS"
-        },
-        {
-          "alias": "sos",
-          "columnName": "SOS"
-        },
-        {
-          "alias": "rpi",
-          "columnName": "RPI"
-        },
-        {
-          "alias": "ppg",
-          "columnName": "PointsPerGame"
-        },
-        {
-          "alias": "bpg",
-          "columnName": "BlocksPerGame"
-        },
-        {
-          "alias": "rpg",
-          "columnName": "ReboundsPerGame"
-        },
-        {
-          "alias": "spg",
-          "columnName": "StealsPerGame"
-        },
-        {
-          "alias": "topg",
-          "columnName": "TurnOversPerGame"
-        }
+        { "alias": "team", "columnName": "TEAM" },
+        { "alias": "gp", "columnName": "GamesPlayed" },
+        { "alias": "win", "columnName": "WIN" },
+        { "alias": "loss", "columnName": "LOSS" },
+        { "alias": "sos", "columnName": "SOS" },
+        { "alias": "rpi", "columnName": "RPI" },
+        { "alias": "ppg", "columnName": "PointsPerGame" },
+        { "alias": "bpg", "columnName": "BlocksPerGame" },
+        { "alias": "rpg", "columnName": "ReboundsPerGame" },
+        { "alias": "spg", "columnName": "StealsPerGame" },
+        { "alias": "topg", "columnName": "TurnOversPerGame" }
       ]
     }
   ],
@@ -63,6 +27,5 @@
     ".editorconfig",
     ".eslintrc",
     "webpack.config.js"
-  ],
-  "id": "64377848-4bcd-473f-941c-d0be3fd38623"
+  ]
 }
