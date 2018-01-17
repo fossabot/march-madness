@@ -1,4 +1,4 @@
-// import domo from 'ryuu.js';
+import domo from 'ryuu.js';
 import Query from '@domoinc/query';
 import { TeamService, Analytics } from '../services';
 import { SELECTORS, TEAM_NAME, HOME_ID, AWAY_ID, TEAM_ALIAS } from '../utils/constants';
