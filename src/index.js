@@ -47,6 +47,7 @@ function init() {
     .getWeightings()
     .then((weights) => {
       Analytics.updateStatWeightings(weights);
+      Analytics.loadLocalWeightings();
 
       // rerun teams pulled from local storage
       if (Analytics.isReady()) {

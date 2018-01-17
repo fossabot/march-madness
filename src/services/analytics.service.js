@@ -11,17 +11,13 @@ class AnalyticsService {
     this.home = persistedTeams && persistedTeams.home ? persistedTeams.home : undefined;
     this.away = persistedTeams && persistedTeams.away ? persistedTeams.away : undefined;
 
-    const persistedWeights = JSON.parse(window.localStorage.getItem('ncaa-persisted-weights'));
-
     // hardcoding these for now
-    const defaultWeights = {
+    this.weights = {
       win: { value: 0.25, invert: false },
       loss: { value: 0.25, invert: true },
       sos: { value: 0.25, invert: true },
       rpi: { value: 0.25, invert: false },
     };
-
-    this.weights = persistedWeights || defaultWeights;
   }
 
   // Updates singletone reference for either home or away team
@@ -93,6 +89,11 @@ class AnalyticsService {
   updateStatWeightings(weights) {
     this.weights = weights;
     window.localStorage.setItem('ncaa-persisted-weights', JSON.stringify(weights));
+  }
+
+  loadLocalWeightings() {
+    const persistedWeights = JSON.parse(window.localStorage.getItem('ncaa-persisted-weights'));
+    if (persistedWeights) this.updateStatWeightings(persistedWeights);
   }
 }
 
