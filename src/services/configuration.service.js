@@ -1,5 +1,5 @@
 import Query from '@domoinc/query';
-
+import { TeamService } from '../services';
 import { CONFIG_ALIAS, CONFIG_FIELDS, CONFIG_WEIGHT_TYPE } from '../utils/constants';
 
 /**
@@ -37,7 +37,12 @@ class ConfigurationService {
       .select(CONFIG_FIELDS)
       .where('type').equals(CONFIG_WEIGHT_TYPE)
       .fetch(CONFIG_ALIAS)
-      .then(prepareWeightings);
+      .then((res) => {
+        const configuredStats = res.map(row => row.name);
+        TeamService.updateStatFields(configuredStats);
+
+        return prepareWeightings(res);
+      });
   }
 
   // example of getting page id from webform

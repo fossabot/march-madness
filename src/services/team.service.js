@@ -10,7 +10,12 @@ class TeamService {
   constructor() {
     this.app = AppCtrl;
     this.alias = TEAM_ALIAS;
+    this.statFields = TEAM_STAT_FIELDS;
     this.teams = [];
+  }
+
+  updateStatFields(fields) {
+    this.statFields = fields;
   }
 
   /**
@@ -62,7 +67,7 @@ class TeamService {
     this.app.toggleLoading();
 
     return (new Query())
-      .select([...TEAM_STAT_FIELDS, 'team'])
+      .select([...this.statFields, TEAM_NAME])
       .where(TEAM_NAME).equals(name)
       .fetch(this.alias)
       .then(this.prepareTeam)
