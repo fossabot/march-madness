@@ -14,9 +14,9 @@ module.exports.SELECTORS = {
   dropdownContent: '.dropdown-content',
 
   settings: '.controls .control[for="settings"]',
+  fullscreen: '.controls .control[for="fullscreen"]',
   modal: '.modal',
   modalOpen: 'open',
-  fullscreen: '.fullscreen-button',
 
   weight: '.weight',
   numberInput: 'input[type="number"]',
