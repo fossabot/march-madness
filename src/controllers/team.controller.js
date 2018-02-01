@@ -10,11 +10,11 @@ const PAGE_URL = '/page/1698810256';
 const createPageFilters = (teamName, column, dataSourceId) => {
   const filters = [
     {
-      column,
+      column: encodeURIComponent(column),
       dataSourceId,
       dataType: 'string',
       operand: 'IN',
-      values: [teamName],
+      values: [encodeURIComponent(teamName)],
     },
   ];
   return JSON.stringify(filters);
