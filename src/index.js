@@ -56,13 +56,6 @@ function init() {
         TeamCtrl.runHeadToHead();
       }
     });
-
-  // get initial team list and populate the dropdown menus
-  TeamService.getTeamList()
-    .then((teams) => {
-      const menus = document.querySelectorAll(SELECTORS.teamList);
-      menus.forEach(menu => TeamCtrl.updateTeamMenu(menu)(teams));
-    });
 }
 
 // global data listener
