@@ -3,10 +3,15 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  flex: 1 1 auto;
+
+  @media screen and (max-width: 500px) {
+    flex-direction: column;
+  }
 
   .team {
-    width: 220px;
-    height: 430px;
+    height: calc(100% - 60px);
+    flex: 1 1 auto;
     padding: 30px;
     color: white;
     background-color: rgba(0, 0, 0, 0.3);
@@ -14,12 +19,28 @@
     flex-direction: column;
     justify-content: space-between;
 
+    &:first-child {
+      margin-right: 10px;
+    }
+
     &.-winner {
       background-color: rgba(0, 0, 0, 0.7);
 
       .icon {
         transition: opacity 0.5s linear;
         opacity: 1;
+      }
+    }
+
+    @media screen and (max-width: 500px) {
+      min-height: 50px;
+      height: initial;
+      flex: 1 0 auto;
+      width: calc(100% - 60px);
+
+      &:first-child {
+        margin-right: initial;
+        margin-bottom: 10px;
       }
     }
 
@@ -40,9 +61,8 @@
       font-size: 13px;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      height: 100%;
       margin-bottom: 15px;
+      flex: 1 1 auto;
 
       .stat {
         padding: 10px 0;
