@@ -24,17 +24,17 @@ function updateTeamMenus(cache) {
 
 function init() {
   // bind search fields
-  bindEventListeners(SELECTORS.search)('input', TeamCtrl.handleTeamSearch());
+  bindEventListeners(SELECTORS.search)('input', TeamCtrl.handleTeamSearch);
 
   // bind dropdown menus
-  bindEventListeners(SELECTORS.dropdown)('click', TeamCtrl.toggleDropdown());
+  bindEventListeners(SELECTORS.dropdown)('click', TeamCtrl.toggleDropdown);
 
   // bind view details button
   bindEventListeners(SELECTORS.teamButton)('click', TeamCtrl.viewDetails());
 
   // bind settings modal
-  bindEventListeners(SELECTORS.settings)('click', AppCtrl.openModal());
-  bindEventListeners(SELECTORS.modal)('click', AppCtrl.closeModal());
+  bindEventListeners(SELECTORS.settings)('click', AppCtrl.openModal);
+  bindEventListeners(SELECTORS.modal)('click', AppCtrl.closeModal);
 
   // bind fullscreen function
   bindEventListeners(SELECTORS.fullscreen)('click', AppCtrl.toggleFullScreen);
@@ -55,6 +55,13 @@ function init() {
         TeamCtrl.updateTeam(AWAY_ID)(Analytics.away);
         TeamCtrl.runHeadToHead();
       }
+    });
+
+  // get initial team list and populate the dropdown menus
+  TeamService.getTeamList()
+    .then((teams) => {
+      const menus = document.querySelectorAll(SELECTORS.teamList);
+      menus.forEach(menu => TeamCtrl.updateTeamMenu(menu)(teams));
     });
 }
 

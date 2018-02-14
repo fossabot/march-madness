@@ -84,10 +84,9 @@ class TeamService {
     const team = res[0];
 
     // replace invalid data types with 0
-    Object.keys(team).forEach((key) => {
-      const stat = team[key];
-      if (typeof stat !== 'number' && typeof stat !== 'string') team[key] = 0;
-    });
+    Object.keys(team)
+      .filter(key => key !== TEAM_NAME)
+      .forEach((key) => { team[key] = parseFloat(team[key]); });
 
     return team;
   }

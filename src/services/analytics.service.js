@@ -61,6 +61,7 @@ class AnalyticsService {
         });
 
         this.app.toggleLoading();
+
         return results;
       })
       .catch(() => this.app.toggleLoading());
