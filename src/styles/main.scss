@@ -24,10 +24,14 @@ body {
   align-items: center;
   justify-content: center;
 
-  background-image: url("../../public/march-madness.jpg");
+  background-image: url("../../public/march-madness.png");
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: top;
+
+  @media screen and (max-width: 500px) {
+    overflow: hidden;
+  }
 }
 
 input {
@@ -45,10 +49,27 @@ input {
 }
 
 .content {
-  align-self: flex-end;
   display: flex;
   flex-direction: column;
+  align-self: flex-end;
   height: 100%;
-  justify-content: flex-end;
-  padding: 25px;
+  padding: 50px 25px;
+  width: 50%;
+
+  .brand {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 5% 0;
+
+    img { width: 70%; }
+  }
+
+  @media screen and (max-width: 500px) {
+    width: calc(100% - 20px);
+    padding: 10px;
+    overflow-y: auto;
+    align-self: center;
+  }
 }

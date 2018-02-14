@@ -27,14 +27,14 @@ function updateTeamMenus(cache) {
 
 function init() {
   // bind search fields
-  bindEventListeners(SELECTORS.search)('input', TeamCtrl.handleTeamSearch());
+  bindEventListeners(SELECTORS.search)('input', TeamCtrl.handleTeamSearch);
 
   // bind dropdown menus
-  bindEventListeners(SELECTORS.dropdown)('click', TeamCtrl.toggleDropdown());
+  bindEventListeners(SELECTORS.dropdown)('click', TeamCtrl.toggleDropdown);
 
   // bind settings modal
-  bindEventListeners(SELECTORS.settings)('click', AppCtrl.openModal());
-  bindEventListeners(SELECTORS.modal)('click', AppCtrl.closeModal());
+  bindEventListeners(SELECTORS.settings)('click', AppCtrl.openModal);
+  bindEventListeners(SELECTORS.modal)('click', AppCtrl.closeModal);
 
   // get initial team list
   updateTeamMenus(true);

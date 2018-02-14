@@ -47,7 +47,7 @@ const buildWeights = weights => (
 );
 
 // Show stat weighting modal
-const openModal = () => () => {
+const openModal = () => {
   const el = document.querySelector(SELECTORS.modal);
 
   return Analytics.getStatWeightings()
@@ -66,7 +66,7 @@ const openModal = () => () => {
 };
 
 // Close stat weighting modal
-const closeModal = () => (evt) => {
+const closeModal = (evt) => {
   const el = evt.target;
 
   if (el.classList.contains('modal')) {

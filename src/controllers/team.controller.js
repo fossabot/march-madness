@@ -9,10 +9,10 @@ import { SELECTORS, TEAM_NAME, HOME_ID, AWAY_ID } from '../utils/constants';
  */
 
 // Show / Hide team selector menus
-const toggleDropdown = id => (evt) => {
-  const dm = (typeof id === 'string')
-    ? document.querySelector(`#${id} ${SELECTORS.dropdownContent}`)
-    : evt.target.parentNode.parentNode.querySelector(SELECTORS.dropdownContent);
+const toggleDropdown = (evt) => {
+  const dm = (typeof evt.target !== 'undefined')
+    ? evt.target.parentNode.parentNode.querySelector(SELECTORS.dropdownContent)
+    : evt.parentNode;
 
   dm.classList.toggle('open');
 };
@@ -81,15 +81,14 @@ const runHeadToHead = () => (
 );
 
 // What to do when a team is selected from the dropdown menu
-const handleTeamSelect = (name, id) => (evt) => {
-  const teamName = (typeof name === 'string') ? name : evt.target.innerText;
-  const teamID = (typeof id === 'string') ? id : evt.target.parentElement.getAttribute('for');
+const handleTeamSelect = (evt) => {
+  const name = evt.target.innerText;
+  const id = evt.target.parentElement.getAttribute('for');
 
-  return TeamService.getTeamStats(teamName, teamID === HOME_ID)
-    .then(team => updateTeam(teamID)(team))
+  return TeamService.getTeamStats(name, id === HOME_ID)
+    .then(team => updateTeam(id)(team))
     .then(() => {
-      toggleDropdown(teamID)();
-
+      toggleDropdown(evt.target.parentNode);
       if (Analytics.isReady()) runHeadToHead();
     });
 };
@@ -103,14 +102,14 @@ const updateTeamMenu = (menu) => {
       const item = document.createElement('div');
       item.className = 'item';
       item.innerHTML = team;
-      item.addEventListener('click', handleTeamSelect());
+      item.addEventListener('click', handleTeamSelect);
       menu.appendChild(item);
     });
   };
 };
 
 // What to do when a user searches in the dropdown menu
-const handleTeamSearch = () => (e) => {
+const handleTeamSearch = (e) => {
   const qs = e.target.value;
   const dd = e.target.parentElement.parentElement.querySelector('.items');
 
