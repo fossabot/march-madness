@@ -23,9 +23,9 @@
   border-radius: 3px;
   box-shadow: #555 2px 3px 5px;
   display: none;
-  height: 400px;
+  height: 300px;
   position: absolute;
-  width: 220px;
+  width: 100%;
   z-index: 1;
   margin-top: 10px;
 
@@ -43,7 +43,7 @@
   }
 
   .items {
-    height: 340px;
+    height: calc(100% - 50px);
     overflow-x: hidden;
     overflow-y: auto;
     color: #000;

@@ -13,19 +13,19 @@ const bindEventListeners = (selector) => {
 
 function init() {
   // bind search fields
-  bindEventListeners(SELECTORS.search)('input', TeamCtrl.handleTeamSearch());
+  bindEventListeners(SELECTORS.search)('input', TeamCtrl.handleTeamSearch);
 
   // bind dropdown menus
-  bindEventListeners(SELECTORS.dropdown)('click', TeamCtrl.toggleDropdown());
+  bindEventListeners(SELECTORS.dropdown)('click', TeamCtrl.toggleDropdown);
 
   // bind view details button
   bindEventListeners(SELECTORS.teamButton)('click', TeamCtrl.viewDetails());
 
   // bind settings modal
-  bindEventListeners(SELECTORS.settings)('click', AppCtrl.openModal());
-  bindEventListeners(SELECTORS.modal)('click', AppCtrl.closeModal());
+  bindEventListeners(SELECTORS.settings)('click', AppCtrl.openModal);
+  bindEventListeners(SELECTORS.modal)('click', AppCtrl.closeModal);
 
-  // get initial team list
+  // get initial team list and populate the dropdown menus
   TeamService.getTeamList()
     .then((teams) => {
       const menus = document.querySelectorAll(SELECTORS.teamList);

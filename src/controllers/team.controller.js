@@ -50,7 +50,7 @@ const viewDetails = () => (evt) => {
  */
 
 // Show / Hide team selector menus
-const toggleDropdown = () => (evt) => {
+const toggleDropdown = (evt) => {
   const dm = (typeof evt.target !== 'undefined')
     ? evt.target.parentNode.parentNode.querySelector(SELECTORS.dropdownContent)
     : evt.parentNode;
@@ -122,14 +122,14 @@ const runHeadToHead = () => (
 );
 
 // What to do when a team is selected from the dropdown menu
-const handleTeamSelect = () => (evt) => {
+const handleTeamSelect = (evt) => {
   const name = evt.target.innerText;
   const id = evt.target.parentElement.getAttribute('for');
 
   return TeamService.getTeamStats(name, id === HOME_ID)
     .then(team => updateTeam(id)(team))
     .then(() => {
-      toggleDropdown()(evt.target.parentNode);
+      toggleDropdown(evt.target.parentNode);
       if (Analytics.isReady()) runHeadToHead();
     });
 };
@@ -142,14 +142,14 @@ const updateTeamMenu = (menu) => {
       const item = document.createElement('div');
       item.className = 'item';
       item.innerHTML = team;
-      item.addEventListener('click', handleTeamSelect());
+      item.addEventListener('click', handleTeamSelect);
       menu.appendChild(item);
     });
   };
 };
 
 // What to do when a user searches in the dropdown menu
-const handleTeamSearch = () => (e) => {
+const handleTeamSearch = (e) => {
   const qs = e.target.value;
   const dd = e.target.parentElement.parentElement.querySelector('.items');
 
