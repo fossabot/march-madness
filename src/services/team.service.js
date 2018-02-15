@@ -66,10 +66,14 @@ class TeamService {
   getTeamStats(name, home = true) {
     this.app.toggleLoading();
 
-    return (new Query())
-      .select([...TEAM_STAT_FIELDS, TEAM_NAME])
-      .where(TEAM_NAME).equals(name)
-      .fetch(this.alias)
+    return Analytics.getStatWeightings()
+      .then(weights => Object.keys(weights))
+      .then(fields => (
+        (new Query())
+          .select([...fields, TEAM_NAME])
+          .where(TEAM_NAME).equals(name)
+          .fetch(this.alias)
+      ))
       .then(this.prepareTeam)
       .then((team) => {
         this.app.toggleLoading();
