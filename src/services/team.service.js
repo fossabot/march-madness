@@ -67,7 +67,7 @@ class TeamService {
     this.app.toggleLoading();
 
     return (new Query())
-      .select([...this.statFields, TEAM_NAME])
+      .select([...TEAM_STAT_FIELDS, TEAM_NAME])
       .where(TEAM_NAME).equals(name)
       .fetch(this.alias)
       .then(this.prepareTeam)
@@ -83,10 +83,11 @@ class TeamService {
   prepareTeam(res) {
     const team = res[0];
 
-    // replace invalid data types with 0
     Object.keys(team)
       .filter(key => key !== TEAM_NAME)
-      .forEach((key) => { team[key] = parseFloat(team[key]); });
+      .forEach((key) => {
+        team[key] = parseFloat(team[key]);
+      });
 
     return team;
   }
