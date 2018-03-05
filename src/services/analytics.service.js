@@ -88,4 +88,4 @@ class AnalyticsService {
 }
 
 // export a singleton
-module.exports = new AnalyticsService();
+export default new AnalyticsService();
