@@ -30,7 +30,7 @@ const prepareWeightings = rows => (
  * Simple service for interacting with
  * the configuration dataset in Domo
  */
-class ConfigurationService {
+export default class ConfigurationService {
   // get configured weightings from Domo
   static getWeightings() {
     return (new Query())
@@ -62,5 +62,3 @@ class ConfigurationService {
       .fetch(CONFIG_ALIAS);
   }
 }
-
-module.exports = ConfigurationService;
