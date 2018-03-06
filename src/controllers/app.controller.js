@@ -17,30 +17,29 @@ const toggleFullScreen = () => {
     doc.fullscreenElement || doc.mozFullScreenElement || doc.webkitFullscreenElement
   );
 
-  let fn;
   if (!fullScreen) {
     if (docElem.requestFullscreen) {
-      fn = docElem.requestFullscreen();
+      docElem.requestFullscreen();
     } else if (docElem.mozRequestFullScreen) {
-      fn = docElem.mozRequestFullScreen();
+      docElem.mozRequestFullScreen();
     } else if (docElem.webkitRequestFullscreen) {
-      fn = docElem.webkitRequestFullscreen();
+      docElem.webkitRequestFullscreen();
     } else if (docElem.msRequestFullscreen) {
-      fn = docElem.msRequestFullscreen();
+      docElem.msRequestFullscreen();
     }
+
+    return;
   } else if (doc.exitFullscreen) {
-    fn = doc.exitFullscreen();
+    return doc.exitFullscreen();
   } else if (doc.mozCancelFullScreen) {
-    fn = doc.mozCancelFullScreen();
+    return doc.mozCancelFullScreen();
   } else if (doc.webkitExitFullscreen) {
-    fn = doc.webkitExitFullscreen();
+    return doc.webkitExitFullscreen();
   } else if (doc.msExitFullscreen) {
-    fn = doc.msExitFullscreen();
+    return doc.msExitFullscreen();
   }
 
-  return (typeof fn === 'undefined')
-    ? console.warn('Fullscreen not supported on this device')
-    : fn;
+  console.warn('Fullscreen not supported on this device');
 };
 
 // Show / Hide loading spinner
