@@ -13,7 +13,7 @@ class AnalyticsService {
 
     const persistedWeights = JSON.parse(window.localStorage.getItem('ncaa-persisted-weights'));
 
-    // hardcoding these for now
+    // hard coding these for now
     const defaultWeights = {
       win: { value: 0.25, invert: false },
       loss: { value: 0.25, invert: true },
@@ -24,7 +24,7 @@ class AnalyticsService {
     this.weights = persistedWeights || defaultWeights;
   }
 
-  // Updates singletone reference for either home or away team
+  // Updates singleton reference for either home or away team
   setTeam(team, isHome) {
     this[isHome ? 'home' : 'away'] = team;
     const persisted = JSON.stringify({ home: this.home, away: this.away });
@@ -97,4 +97,4 @@ class AnalyticsService {
 }
 
 // export a singleton
-module.exports = new AnalyticsService();
+export default new AnalyticsService();
