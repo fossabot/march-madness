@@ -7,6 +7,8 @@ const defaultWeights = {
   sos: { value: 0.25, invert: true },
   rpi: { value: 0.25, invert: false },
 };
+const TEAM_KEY = 'ncaa-persisted-teams';
+const WEIGHTS_KEY = 'ncaa-persisted-weights';
 
 /**
  * Service for performing simple analysis
@@ -21,7 +23,7 @@ class AnalyticsService {
   setTeam(team, isHome) {
     this[isHome ? 'home' : 'away'] = team;
     const persisted = JSON.stringify({ home: this.home, away: this.away });
-    window.localStorage.setItem('ncaa-persisted-teams', persisted);
+    window.localStorage.setItem(TEAM_KEY , persisted);
 
     return team;
   }
@@ -85,13 +87,13 @@ class AnalyticsService {
   // update internal reference for weightings
   updateStatWeightings(weights) {
     this.weights = weights;
-    window.localStorage.setItem('ncaa-persisted-weights', JSON.stringify(weights));
+    window.localStorage.setItem(WEIGHTS_KEY, JSON.stringify(weights));
   }
 
   // private method to load persisted teams
   hydrateTeams() {
     try {
-      const persistedTeams = JSON.parse(window.localStorage.getItem('ncaa-persisted-teams'));
+      const persistedTeams = JSON.parse(window.localStorage.getItem(TEAM_KEY));
       this.home = persistedTeams && persistedTeams.home ? persistedTeams.home : undefined;
       this.away = persistedTeams && persistedTeams.away ? persistedTeams.away : undefined;
     } catch (error) {
@@ -103,7 +105,7 @@ class AnalyticsService {
   // private method to load persisted weights
   hydrateWeights() {
     try {
-      const persistedWeights = JSON.parse(window.localStorage.getItem('ncaa-persisted-weights'));
+      const persistedWeights = JSON.parse(window.localStorage.getItem(WEIGHTS_KEY));
       this.weights = persistedWeights || defaultWeights;
     } catch (error) {
       this.weights = defaultWeights;
