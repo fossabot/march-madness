@@ -9,7 +9,7 @@ class AnalyticsService {
     this.home = undefined;
     this.away = undefined;
 
-    // hardcoding these for now
+    // hard coding these for now
     this.weights = {
       win: { value: 0.25, invert: false },
       loss: { value: 0.25, invert: true },
@@ -18,7 +18,7 @@ class AnalyticsService {
     };
   }
 
-  // Updates singletone reference for either home or away team
+  // Updates singleton reference for either home or away team
   setTeam(team, isHome) {
     this[isHome ? 'home' : 'away'] = team;
 
