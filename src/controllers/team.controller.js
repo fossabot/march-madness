@@ -129,7 +129,7 @@ const updateActiveTeams = () => {
   if (away !== 'Away') handleTeamSelect(away, AWAY_ID);
 };
 
-module.exports = {
+export default {
   runHeadToHead,
   handleTeamSearch,
   toggleDropdown,
