@@ -76,7 +76,7 @@ const closeModal = (evt) => {
   }
 };
 
-module.exports = {
+export default {
   toggleLoading,
   openModal,
   closeModal,

@@ -158,7 +158,7 @@ const handleTeamSearch = (e) => {
     .then(teams => updateTeamMenu(dd)(teams));
 };
 
-module.exports = {
+export default {
   runHeadToHead,
   handleTeamSearch,
   toggleDropdown,
