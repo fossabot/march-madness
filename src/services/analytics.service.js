@@ -23,7 +23,7 @@ class AnalyticsService {
   setTeam(team, isHome) {
     this[isHome ? 'home' : 'away'] = team;
     const persisted = JSON.stringify({ home: this.home, away: this.away });
-    window.localStorage.setItem(TEAM_KEY , persisted);
+    window.localStorage.setItem(TEAM_KEY, persisted);
 
     return team;
   }
