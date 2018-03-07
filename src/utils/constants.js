@@ -1,11 +1,11 @@
-module.exports.TEAM_ALIAS = 'teams';
-module.exports.TEAM_NAME = 'team';
-module.exports.TEAM_STAT_FIELDS = ['win', 'loss', 'sos', 'rpi'];
+const TEAM_ALIAS = 'teams';
+const TEAM_NAME = 'team';
+const TEAM_STAT_FIELDS = ['win', 'loss', 'sos', 'rpi'];
 
-module.exports.HOME_ID = 'home-team';
-module.exports.AWAY_ID = 'away-team';
+const HOME_ID = 'home-team';
+const AWAY_ID = 'away-team';
 
-module.exports.SELECTORS = {
+const SELECTORS = {
   spinner: '.spinner',
   hideSpinner: 'hide',
 
@@ -29,3 +29,5 @@ module.exports.SELECTORS = {
   teamButton: 'button',
   teamStat: key => `div.stat[data-stat="${key}"`,
 };
+
+export { TEAM_ALIAS, TEAM_NAME, TEAM_STAT_FIELDS, HOME_ID, AWAY_ID, SELECTORS };
