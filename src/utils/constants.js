@@ -1,15 +1,15 @@
-module.exports.TEAM_ALIAS = 'teams';
-module.exports.TEAM_NAME = 'team';
-module.exports.TEAM_STAT_FIELDS = ['win', 'loss', 'sos', 'rpi'];
+const TEAM_ALIAS = 'teams';
+const TEAM_NAME = 'team';
+const TEAM_STAT_FIELDS = ['win', 'loss', 'sos', 'rpi'];
 
-module.exports.CONFIG_ALIAS = 'config';
-module.exports.CONFIG_FIELDS = ['name', 'value'];
-module.exports.CONFIG_WEIGHT_TYPE = 'weight';
+const CONFIG_ALIAS = 'config';
+const CONFIG_FIELDS = ['name', 'value'];
+const CONFIG_WEIGHT_TYPE = 'weight';
 
-module.exports.HOME_ID = 'home-team';
-module.exports.AWAY_ID = 'away-team';
+const HOME_ID = 'home-team';
+const AWAY_ID = 'away-team';
 
-module.exports.SELECTORS = {
+const SELECTORS = {
   spinner: '.spinner',
   hideSpinner: 'hide',
 
@@ -31,4 +31,15 @@ module.exports.SELECTORS = {
   teamStats: '.stats',
   teamButton: 'button',
   teamStat: key => `div.stat[data-stat="${key}"`,
+};
+
+export {
+  TEAM_ALIAS,
+  TEAM_NAME,
+  TEAM_STAT_FIELDS,
+  CONFIG_ALIAS,
+  CONFIG_FIELDS,
+  CONFIG_WEIGHT_TYPE,
+  HOME_ID, AWAY_ID,
+  SELECTORS,
 };
