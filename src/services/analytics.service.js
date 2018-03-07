@@ -1,27 +1,20 @@
 import { AppCtrl } from '../controllers';
 
+// hard coding these for now
+const defaultWeights = {
+  win: { value: 0.25, invert: false },
+  loss: { value: 0.25, invert: true },
+  sos: { value: 0.25, invert: true },
+  rpi: { value: 0.25, invert: false },
+};
+
 /**
  * Service for performing simple analysis
  */
 class AnalyticsService {
   constructor() {
-    this.app = AppCtrl;
-    const persistedTeams = JSON.parse(window.localStorage.getItem('ncaa-persisted-teams'));
-
-    this.home = persistedTeams && persistedTeams.home ? persistedTeams.home : undefined;
-    this.away = persistedTeams && persistedTeams.away ? persistedTeams.away : undefined;
-
-    const persistedWeights = JSON.parse(window.localStorage.getItem('ncaa-persisted-weights'));
-
-    // hard coding these for now
-    const defaultWeights = {
-      win: { value: 0.25, invert: false },
-      loss: { value: 0.25, invert: true },
-      sos: { value: 0.25, invert: true },
-      rpi: { value: 0.25, invert: false },
-    };
-
-    this.weights = persistedWeights || defaultWeights;
+    this.hydrateTeams();
+    this.hydrateWeights();
   }
 
   // Updates singleton reference for either home or away team
@@ -40,7 +33,7 @@ class AnalyticsService {
 
   // calculate weighted team stats
   run() {
-    this.app.toggleLoading();
+    AppCtrl.toggleLoading();
 
     return this
       .getStatWeightings()
@@ -64,10 +57,10 @@ class AnalyticsService {
           });
         });
 
-        this.app.toggleLoading();
+        AppCtrl.toggleLoading();
         return results;
       })
-      .catch(() => this.app.toggleLoading());
+      .catch(() => AppCtrl.toggleLoading());
   }
 
   // does home have more points than away?
@@ -93,6 +86,28 @@ class AnalyticsService {
   updateStatWeightings(weights) {
     this.weights = weights;
     window.localStorage.setItem('ncaa-persisted-weights', JSON.stringify(weights));
+  }
+
+  // private method to load persisted teams
+  hydrateTeams() {
+    try {
+      const persistedTeams = JSON.parse(window.localStorage.getItem('ncaa-persisted-teams'));
+      this.home = persistedTeams && persistedTeams.home ? persistedTeams.home : undefined;
+      this.away = persistedTeams && persistedTeams.away ? persistedTeams.away : undefined;
+    } catch (error) {
+      this.home = undefined;
+      this.away = undefined;
+    }
+  }
+
+  // private method to load persisted weights
+  hydrateWeights() {
+    try {
+      const persistedWeights = JSON.parse(window.localStorage.getItem('ncaa-persisted-weights'));
+      this.weights = persistedWeights || defaultWeights;
+    } catch (error) {
+      this.weights = defaultWeights;
+    }
   }
 }
 
