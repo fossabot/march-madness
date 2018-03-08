@@ -19,7 +19,7 @@ function init() {
   bindEventListeners(SELECTORS.dropdown)('click', TeamCtrl.toggleDropdown);
 
   // bind view details button
-  bindEventListeners(SELECTORS.teamButton)('click', TeamCtrl.viewDetails());
+  bindEventListeners(SELECTORS.teamButton)('click', TeamCtrl.viewDetails);
 
   // bind settings modal
   bindEventListeners(SELECTORS.settings)('click', AppCtrl.openModal);
