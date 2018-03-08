@@ -1,3 +1,4 @@
+import screenfull from 'screenfull';
 import './styles/main.scss';
 import { SELECTORS } from './utils/constants';
 import { TeamService } from './services';
@@ -31,6 +32,14 @@ function init() {
       const menus = document.querySelectorAll(SELECTORS.teamList);
       menus.forEach(menu => TeamCtrl.updateTeamMenu(menu)(teams));
     });
+
+  // toggle the icon for the fullscreen button
+  screenfull.onchange(() => {
+    const iconClass = screenfull.isFullscreen ? 'fa fa-compress' : 'fa fa-expand';
+    const icon = document.querySelector(SELECTORS.fullscreen)
+      .querySelector('[data-fa-i2svg]');
+    icon.classList = iconClass;
+  });
 }
 
 init();

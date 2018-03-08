@@ -9,21 +9,14 @@ import { SELECTORS } from '../utils/constants';
  * the UI related to app-wide elements
  */
 
-// toggle the icon for the fullscreen button
-screenfull.onchange(() => {
-  const iconClass = screenfull.isFullscreen ? 'fa fa-compress' : 'fa fa-expand';
-  const icon = document.querySelector(SELECTORS.fullscreen)
-    .querySelector('[data-fa-i2svg]');
-  icon.classList = iconClass;
-});
 // toggle fullscreen mode
-const toggleFullScreen = () => {
+function toggleFullScreen() {
   if (screenfull.enabled) {
     screenfull.toggle();
   } else {
     console.warn('Fullscreen not supported on this device');
   }
-};
+}
 
 // Show / Hide loading spinner
 function toggleLoading() {
