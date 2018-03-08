@@ -19,6 +19,9 @@ const SELECTORS = {
 
   settings: '.controls .control[for="settings"]',
   fullscreen: '.controls .control[for="fullscreen"]',
+  fullscreenIcon: '[data-fa-i2svg]',
+  enterFullscreen: 'fa fa-expand',
+  exitFullscreen: 'fa fa-compress',
   modal: '.modal',
   modalOpen: 'open',
 

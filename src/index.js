@@ -1,5 +1,5 @@
 import * as domo from 'ryuu.js';
-
+import screenfull from 'screenfull';
 import './styles/main.scss';
 import { SELECTORS, TEAM_ALIAS, HOME_ID, AWAY_ID } from './utils/constants';
 import { TeamService, Analytics, Configuration } from './services';
@@ -56,6 +56,15 @@ function init() {
         TeamCtrl.runHeadToHead();
       }
     });
+
+  // toggle the icon for the fullscreen button
+  screenfull.onchange(() => {
+    const iconClass = screenfull.isFullscreen ? SELECTORS.exitFullscreen : SELECTORS.enterFullscreen;
+    const icon = document.querySelector(SELECTORS.fullscreen)
+      .querySelector(SELECTORS.fullscreenIcon);
+
+    icon.classList = iconClass;
+  });
 }
 
 // global data listener. This will catch any 'data updated' events
