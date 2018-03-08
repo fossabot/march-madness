@@ -5,13 +5,13 @@ import { SELECTORS, TEAM_ALIAS } from './utils/constants';
 import { TeamService } from './services';
 import { AppCtrl, TeamCtrl } from './controllers';
 
-const bindEventListeners = (selector) => {
+function bindEventListeners(selector) {
   const elements = document.querySelectorAll(selector);
 
   return (event, listener) => (
     elements.forEach(el => el.addEventListener(event, listener))
   );
-};
+}
 
 function updateTeamMenus(cache) {
   AppCtrl.toggleLoading();

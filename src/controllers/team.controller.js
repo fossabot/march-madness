@@ -9,16 +9,16 @@ import { SELECTORS, TEAM_NAME, HOME_ID, AWAY_ID } from '../utils/constants';
  */
 
 // Show / Hide team selector menus
-const toggleDropdown = (evt) => {
+function toggleDropdown(evt) {
   const dm = (typeof evt.target !== 'undefined')
     ? evt.target.parentNode.parentNode.querySelector(SELECTORS.dropdownContent)
     : evt.parentNode;
 
   dm.classList.toggle('open');
-};
+}
 
 // render team stat details
-const updateTeam = (id) => {
+function updateTeam(id) {
   const el = document.getElementById(id);
 
   return (team) => {
@@ -40,10 +40,10 @@ const updateTeam = (id) => {
 
     return stats;
   };
-};
+}
 
 // determine which team stat won
-const updateTeamStat = (stat) => {
+function updateTeamStat(stat) {
   const stats = document.querySelectorAll(SELECTORS.teamStat(stat.stat));
   stat.results.forEach((win, index) => {
     if (win) {
@@ -54,13 +54,15 @@ const updateTeamStat = (stat) => {
   });
 
   return stat;
-};
+}
 
 // update all team stats for win/loss
-const updateTeamStats = results => results.map(updateTeamStat);
+function updateTeamStats(results) {
+  return results.map(updateTeamStat);
+}
 
 // update the winning team container class
-const findWinningTeam = (results) => {
+function findWinningTeam(results) {
   if (Analytics.homeWinner(results)) {
     document.getElementById(HOME_ID).classList.add(SELECTORS.winningTeam);
     document.getElementById(AWAY_ID).classList.remove(SELECTORS.winningTeam);
@@ -70,18 +72,18 @@ const findWinningTeam = (results) => {
   }
 
   return results;
-};
+}
 
 // helper function to chain all the necessary functions together to
 // determine which team has won
-const runHeadToHead = () => (
-  Analytics.run()
+function runHeadToHead() {
+  return Analytics.run()
     .then(updateTeamStats)
-    .then(findWinningTeam)
-);
+    .then(findWinningTeam);
+}
 
 // What to do when a team is selected from the dropdown menu
-const handleTeamSelect = (evt) => {
+function handleTeamSelect(evt) {
   const name = evt.target.innerText;
   const id = evt.target.parentElement.getAttribute('for');
 
@@ -91,10 +93,9 @@ const handleTeamSelect = (evt) => {
       toggleDropdown(evt.target.parentNode);
       if (Analytics.isReady()) runHeadToHead();
     });
-};
+}
 
-// Update the dropdown menu content
-const updateTeamMenu = (menu) => {
+function updateTeamMenu(menu) {
   menu.innerHTML = null;
 
   return (teams) => {
@@ -106,20 +107,20 @@ const updateTeamMenu = (menu) => {
       menu.appendChild(item);
     });
   };
-};
+}
 
 // What to do when a user searches in the dropdown menu
-const handleTeamSearch = (e) => {
+function handleTeamSearch(e) {
   const qs = e.target.value;
   const dd = e.target.parentElement.parentElement.querySelector('.items');
 
   TeamService
     .filterTeamList(qs)
     .then(teams => updateTeamMenu(dd)(teams));
-};
+}
 
 // Force a "teamSelect" event when Domo data refreshes
-const updateActiveTeams = () => {
+function updateActiveTeams() {
   // What are the active team names?
   const home = document.querySelector(`#${HOME_ID} .name`).innerText;
   const away = document.querySelector(`#${AWAY_ID} .name`).innerText;
