@@ -3,13 +3,13 @@ import { SELECTORS } from './utils/constants';
 import { TeamService, Analytics, Configuration } from './services';
 import { AppCtrl, TeamCtrl } from './controllers';
 
-const bindEventListeners = (selector) => {
+function bindEventListeners(selector) {
   const elements = document.querySelectorAll(selector);
 
   return (event, listener) => (
     elements.forEach(el => el.addEventListener(event, listener))
   );
-};
+}
 
 function init() {
   // bind search fields
