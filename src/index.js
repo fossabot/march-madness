@@ -35,9 +35,10 @@ function init() {
 
   // toggle the icon for the fullscreen button
   screenfull.onchange(() => {
-    const iconClass = screenfull.isFullscreen ? 'fa fa-compress' : 'fa fa-expand';
+    const iconClass = screenfull.isFullscreen ? SELECTORS.exitFullscreen : SELECTORS.enterFullscreen;
     const icon = document.querySelector(SELECTORS.fullscreen)
-      .querySelector('[data-fa-i2svg]');
+      .querySelector(SELECTORS.fullscreenIcon);
+
     icon.classList = iconClass;
   });
 }
