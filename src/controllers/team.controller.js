@@ -7,7 +7,9 @@ const PAGE_URL = '/page/1698810256';
 
 // this is called when the user clicks the "View Details" button.  More documentation on
 // domo.navigate can be found here: https://developer.domo.com/docs/dev-studio-references/domo-js#domo.navigate
-const viewDetails = () => () => domo.navigate(PAGE_URL, true);
+function viewDetails() {
+  domo.navigate(PAGE_URL, true);
+}
 
 /**
  * Team Controller
