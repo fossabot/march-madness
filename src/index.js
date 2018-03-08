@@ -56,9 +56,15 @@ function init() {
         TeamCtrl.runHeadToHead();
       }
     });
+
+  // get initial team list
+  updateTeamMenus(true);
 }
 
-// global data listener
+// global data listener. This will catch any 'data updated' events
+// sent from Domo and provide the alias of the dataset that was
+// updated. The callback is where you can handle the event.
+// See https://developer.domo.com/docs/dev-studio-references/domo-js#domo.onDataUpdate
 domo.onDataUpdate((alias) => {
   console.info(`dataset "${alias}" updated`, new Date().getTime());
 
