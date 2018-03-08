@@ -1,7 +1,7 @@
+import screenfull from 'screenfull';
 import { TeamCtrl } from '../controllers';
 import { Analytics } from '../services';
 import { SELECTORS } from '../utils/constants';
-
 /**
  * App Controller
  *
@@ -9,38 +9,20 @@ import { SELECTORS } from '../utils/constants';
  * the UI related to app-wide elements
  */
 
+// toggle the icon for the fullscreen button
+screenfull.onchange(() => {
+  const iconClass = screenfull.isFullscreen ? 'fa fa-compress' : 'fa fa-expand';
+  const icon = document.querySelector(SELECTORS.fullscreen)
+    .querySelector('[data-fa-i2svg]');
+  icon.classList = iconClass;
+});
 // toggle fullscreen mode
 const toggleFullScreen = () => {
-  const docElem = document.documentElement;
-  const doc = document;
-  const fullScreen = (
-    doc.fullscreenElement || doc.mozFullScreenElement || doc.webkitFullscreenElement
-  );
-
-  let fn;
-  if (!fullScreen) {
-    if (docElem.requestFullscreen) {
-      fn = docElem.requestFullscreen();
-    } else if (docElem.mozRequestFullScreen) {
-      fn = docElem.mozRequestFullScreen();
-    } else if (docElem.webkitRequestFullscreen) {
-      fn = docElem.webkitRequestFullscreen();
-    } else if (docElem.msRequestFullscreen) {
-      fn = docElem.msRequestFullscreen();
-    }
-  } else if (doc.exitFullscreen) {
-    fn = doc.exitFullscreen();
-  } else if (doc.mozCancelFullScreen) {
-    fn = doc.mozCancelFullScreen();
-  } else if (doc.webkitExitFullscreen) {
-    fn = doc.webkitExitFullscreen();
-  } else if (doc.msExitFullscreen) {
-    fn = doc.msExitFullscreen();
+  if (screenfull.enabled) {
+    screenfull.toggle();
+  } else {
+    console.warn('Fullscreen not supported on this device');
   }
-
-  return (typeof fn === 'undefined')
-    ? console.warn('Fullscreen not supported on this device')
-    : fn;
 };
 
 // Show / Hide loading spinner

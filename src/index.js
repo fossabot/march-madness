@@ -56,9 +56,6 @@ function init() {
         TeamCtrl.runHeadToHead();
       }
     });
-
-  // get initial team list
-  updateTeamMenus(true);
 }
 
 // global data listener. This will catch any 'data updated' events
