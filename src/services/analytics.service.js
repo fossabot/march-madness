@@ -15,6 +15,7 @@ const WEIGHTS_KEY = 'ncaa-persisted-weights';
  */
 class AnalyticsService {
   constructor() {
+    this.app = AppCtrl;
     this.hydrateTeams();
     this.hydrateWeights();
   }
@@ -35,7 +36,7 @@ class AnalyticsService {
 
   // calculate weighted team stats
   run() {
-    AppCtrl.toggleLoading();
+    this.app.toggleLoading();
 
     return this
       .getStatWeightings()
@@ -59,10 +60,10 @@ class AnalyticsService {
           });
         });
 
-        AppCtrl.toggleLoading();
+        this.app.toggleLoading();
         return results;
       })
-      .catch(() => AppCtrl.toggleLoading());
+      .catch(() => this.app.toggleLoading());
   }
 
   // does home have more points than away?
