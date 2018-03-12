@@ -14,6 +14,7 @@ function toggleFullScreen() {
   if (screenfull.enabled) {
     screenfull.toggle();
   } else {
+    // eslint-disable-next-line
     console.warn('Fullscreen not supported on this device');
   }
 }
