@@ -128,7 +128,7 @@ function updateActiveTeams() {
   // Only update if they're not the default placeholders
   if (home !== 'Home') handleTeamSelect(home, HOME_ID);
   if (away !== 'Away') handleTeamSelect(away, AWAY_ID);
-};
+}
 
 export default {
   runHeadToHead,
