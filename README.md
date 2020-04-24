@@ -1,4 +1,6 @@
 # March Madness: DP18
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FDomoApps%2Fmarch-madness.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FDomoApps%2Fmarch-madness?ref=badge_shield)
+
 
 Sample Custom App that creates Head 2 Head scenarios to help you build your 2018 bracket. We've provided
 a base, working app that demonstrates the use of Webpack to bundle your assets. During the course we will work
@@ -64,3 +66,7 @@ Showing the app with all of these features combined.
 * `npm run upload` or `yarn upload` will build your app and publish it to your Domo instance.
 
 
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FDomoApps%2Fmarch-madness.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FDomoApps%2Fmarch-madness?ref=badge_large)
